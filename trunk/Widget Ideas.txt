@@ -1,5 +1,5 @@
 
- - Scrolling banner with customizable text (slowly scrolling )
+ - Scrolling banner with customizable text (slowly scrolling ) (RSS Feeds, Stock values)
 
  - Clock
 
@@ -19,6 +19,10 @@
 
  - calc
 
- - 
+ - Weather App
+
+ - desktop photo album (?)
+
+ - System state (Battery life widget, temperature of different components, memory usage)
 
 
