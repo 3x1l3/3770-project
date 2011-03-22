@@ -1,0 +1,24 @@
+
+ - Scrolling banner with customizable text (slowly scrolling )
+
+ - Clock
+
+ - Text edit - Import our own widgets from the assignment.
+
+ - reimpelement the guage for something (processing, or immitate it at least)
+
+ - Notfiication widget (would have to be simulated) - tracks incoming phone calls / texts / emails / im's /
+
+ - widget to control clickthrough on the widget / enable & disable the widget always on top.
+
+ - Stopclock (timer) / Countdown
+
+ - savings meter - choose a item and ammount to save for , user then can input how much they have saves towards the item (keep adding ) and show them the precentage they have saved 
+
+ - to do list?
+
+ - calc
+
+ - 
+
+
