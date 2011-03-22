@@ -22,7 +22,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::clicked() {
     QProcess *process = new QProcess(this);
+
     QStringList list = QStringList();
-    list << "Summary What?" << "STFU!";
+    list << "-i  << "Summary What?" << "STFU!"; 
     process->start("/usr/bin/notify-send", list);
 }
