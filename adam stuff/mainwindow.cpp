@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
  // parentWidget()->setMouseTracking(true);
 
   
-  QHBoxLayout *layout = new QHBoxLayout();
+ QHBoxLayout *layout = new QHBoxLayout();
   layout->addWidget(label);
   layout->addWidget(password);
   layout->addWidget(button);
@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   
   setCentralWidget(new QWidget());
   centralWidget()->setLayout(layout);
+  centralWidget()->setMouseTracking(true);
   
   connect(button, SIGNAL(clicked()), this, SLOT(showPassword()));
   connect(makeTrans, SIGNAL(clicked()), this, SLOT(setTransparency()));
@@ -52,7 +53,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   //setAttribute(Qt::WA_X11DoNotAcceptFocus);
   fired = false;
 
-  startTimer(150);
+  //startTimer(10);
  
   //QWidget::setWindowOpacity(0.5);
 	
@@ -170,7 +171,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   */
   
   QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,width(),height()));
-  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-3, y-3, 20, 20));
+  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
   
   
   
@@ -195,6 +196,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 bool MainWindow::x11Event(XEvent * event)
 {
+      
   QWidget::x11Event(event);
   
   
