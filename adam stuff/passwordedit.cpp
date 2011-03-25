@@ -16,6 +16,8 @@
 
 #include "passwordedit.h"
 #include <QtGui>
+#include <iostream>
+using namespace std;
 
 /// Default Constructor
 /// sets everything to blank/null/false
@@ -26,6 +28,11 @@ PasswordEdit::PasswordEdit( QWidget * parent)
   asterix = "";
   shiftHeld = false;
   position = 0;
+  isInvisible = false;
+  
+  setMouseTracking(true);
+  fullArea = new QRegion(0, 0, QWidget::width(), QWidget::height(),QRegion::Rectangle);
+  noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
 }
 
 PasswordEdit::~PasswordEdit()
@@ -166,4 +173,49 @@ void PasswordEdit::mouseReleaseEvent(QMouseEvent * event)
   /// set text makes this an issue.
   QLineEdit::setCursorPosition(position);
   
+}
+
+void PasswordEdit::setInvisible(bool setter)
+{
+  isInvisible = setter;
+}
+
+void PasswordEdit::leaveEvent(QEvent* event)
+{
+  QLineEdit::leaveEvent(event);
+  setMask(*fullArea);
+ // setInvisible(false);
+  
+}
+
+void PasswordEdit::mouseMoveEvent(QMouseEvent * event)
+{
+ QLineEdit::mouseMoveEvent(event); 
+ 
+ x = event->x();
+ y = event->y();
+ update();
+  
+}
+
+void PasswordEdit::paintEvent(QPaintEvent *event)
+{
+  QLineEdit::paintEvent(event);
+  QPainter painter(this);
+    
+  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,width(),height()));
+  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
+  
+  
+  
+  myPolygon = myPolygon.subtracted(mousePolygon);
+  cout << x << " " << y << " " << isInvisible << " " << true << " " << underMouse() <<  endl;
+  *noArea = QRegion(myPolygon,Qt::OddEvenFill );
+  
+  if(isInvisible == true && underMouse() == true)
+  {
+    cout << "\nIS UNDER MOUSE\n";
+        setMask(*noArea);
+  }
+
 }

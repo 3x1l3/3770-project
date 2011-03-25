@@ -42,7 +42,14 @@ class PasswordEdit : public QLineEdit {
     void mouseReleaseEvent( QMouseEvent * event);
     void mousePressEvent ( QMouseEvent * event);
    
-  
+    void leaveEvent(QEvent * event);
+    void paintEvent (QPaintEvent * event);
+    void mouseMoveEvent (QMouseEvent * event);
+    
+    void setInvisible(bool setter);
+    
+    QRegion *noArea;
+    QRegion *fullArea;
     
   private:
     
@@ -58,6 +65,11 @@ class PasswordEdit : public QLineEdit {
     
     /// used to keep the position of the cursor after typing in the middle, etc.
     int position;
+    
+    bool isInvisible;
+    int x;
+    int y;
+    
   
 };
 
