@@ -7,7 +7,6 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   
-  this->show();
   label = new QLabel("Type password: ");
   password = new PasswordEdit();
   button = new QPushButton("Show");
@@ -40,7 +39,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   fullArea = new QRegion(0, 0, QWidget::width(), QWidget::height(),QRegion::Rectangle);
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   
-  cout << width() << " " << height() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
   
   underClick = false;
   
@@ -77,8 +75,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     context_menu->addAction(hide);
     context_menu->addAction(exit);
     tray->setContextMenu(context_menu);
-  
-  
 	
 }
 
@@ -206,7 +202,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   if(underClick == true)
   {
         setMask(*noArea);
-	this->setWindowOpacity(0.05);
+	this->setWindowOpacity(0.0);
 	cout << "\nlolmask\n";
   }
   else
