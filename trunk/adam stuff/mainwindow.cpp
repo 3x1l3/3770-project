@@ -99,7 +99,7 @@ void MainWindow::setTransparency()
 
 void MainWindow::timerEvent(QTimerEvent * event)
 {
- 
+ /*
   pos = QPoint(x, y);
   
   QMouseEvent mouseevent(QEvent::MouseMove, pos, Qt::LeftButton, 0, 0);
@@ -109,7 +109,7 @@ void MainWindow::timerEvent(QTimerEvent * event)
   //update();
   //repaint();
   cout << "\ntimer\n";
-  
+  */
 }
 
 void MainWindow::mouseMoveEvent( QMouseEvent * event)
@@ -174,6 +174,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
   QWidget::paintEvent(event);
   QPainter painter(this);
+  
   
   cout << "\n\nPainted: X " << x << " and Y " << y << endl;
 
