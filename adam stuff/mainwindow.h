@@ -24,7 +24,7 @@ private slots:
   void setTransparency();
   
 private:
-
+  
   QLabel *label;
   PasswordEdit *password;
   QPushButton *button;
