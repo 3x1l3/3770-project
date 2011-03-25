@@ -176,9 +176,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
   QPainter painter(this);
   
   cout << "\n\nPainted: X " << x << " and Y " << y << endl;
-  
-  pos = QCursor::pos();
-  painter.setOpacity(1.0);
+
+
   //x = pos.x();
   //y = pos.y();
   
@@ -198,7 +197,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   mouseBox.append(QPoint::QPoint(x+8, y-8));
   */
   
-  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,width(),height()));
+  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QMainWindow::width(),QMainWindow::height()));
   QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
   
   
@@ -210,7 +209,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   if(underClick == true)
   {
         setMask(*noArea);
-	this->setWindowOpacity(0.5);
+	this->setWindowOpacity(0.2);
 	cout << "\nlolmask\n";
   }
   else

@@ -45,6 +45,7 @@ protected:
   
   
   int x, y;
+  int height, width;
   QPoint pos;
   bool underClick;
   bool fired;
