@@ -31,6 +31,7 @@ private:
   QRegion *noArea;
   QRegion *fullArea;
   QPushButton *makeTrans;
+  void setupAreas(QRegion* fullArea, QRegion* noArea);
   
 protected:
   void mousePressEvent(QMouseEvent *event);
@@ -41,9 +42,6 @@ protected:
   
   void timerEvent(QTimerEvent *event);
 
-  
-  
-  
   int x, y;
   int height, width;
   QPoint pos;

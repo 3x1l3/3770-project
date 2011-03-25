@@ -6,7 +6,7 @@
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-  
+
   label = new QLabel("Type password: ");
   password = new PasswordEdit();
   button = new QPushButton("Show");
@@ -36,7 +36,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   connect(button, SIGNAL(clicked()), this, SLOT(showPassword()));
   connect(makeTrans, SIGNAL(clicked()), this, SLOT(setTransparency()));
   
-  fullArea = new QRegion(0, 0, QWidget::width(), QWidget::height(),QRegion::Rectangle);
+  fullArea = new QRegion(0, 0, QMainWindow::width(), QMainWindow::height(), QRegion::Rectangle);
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   
   
@@ -45,8 +45,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   this->setMouseTracking(true);
 
   x = 0;
-  y = 0;
   
+  y = 0;
   setWindowFlags(Qt::WindowStaysOnTopHint);
 /*  setAttribute(Qt::WA_MouseTracking);
   setAttribute(Qt::WA_MouseNoMask);
@@ -92,14 +92,22 @@ void MainWindow::showPassword() {
 void MainWindow::setTransparency()
 {
   underClick = !underClick;
-  this->showFullScreen();
-  password->setInvisible(true);
+  if(underClick)
+  {
+    this->showFullScreen();
+    password->setInvisible(true);
+  }
+  else
+  {
+    this->showNormal();
+    password->setInvisible(false);
+  }
   update();
 }
 
 void MainWindow::timerEvent(QTimerEvent * event)
 {
- /*
+ 
   pos = QPoint(x, y);
   
   QMouseEvent mouseevent(QEvent::MouseMove, pos, Qt::LeftButton, 0, 0);
@@ -109,7 +117,7 @@ void MainWindow::timerEvent(QTimerEvent * event)
   //update();
   //repaint();
   cout << "\ntimer\n";
-  */
+  
 }
 
 void MainWindow::mouseMoveEvent( QMouseEvent * event)
@@ -133,11 +141,6 @@ void MainWindow::mousePressEvent(QMouseEvent * event)
     
     x= event->x();
     y = event->y();
-    
-    
-
-    
-
     
     //this->hide();
    // this->setVisible(false);
@@ -176,9 +179,11 @@ void MainWindow::paintEvent(QPaintEvent *event)
   QPainter painter(this);
   
   
+  
   cout << "\n\nPainted: X " << x << " and Y " << y << endl;
-
-
+  
+  pos = QCursor::pos();
+  painter.setOpacity(1.0);
   //x = pos.x();
   //y = pos.y();
   
@@ -198,7 +203,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   mouseBox.append(QPoint::QPoint(x+8, y-8));
   */
   
-  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QMainWindow::width(),QMainWindow::height()));
+  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QMainWindow::width(), QMainWindow::height()));
   QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
   
   
@@ -206,16 +211,19 @@ void MainWindow::paintEvent(QPaintEvent *event)
   myPolygon = myPolygon.subtracted(mousePolygon);
   
   *noArea = QRegion(myPolygon,Qt::OddEvenFill );
+  *fullArea = QRegion(QRect(0, 0, QMainWindow::width(), QMainWindow::height()));
   
   if(underClick == true)
   {
         setMask(*noArea);
-	this->setWindowOpacity(0.2);
+	this->setWindowOpacity(0.5);
 	cout << "\nlolmask\n";
   }
   else
   {
+	//setupAreas(fullArea, noArea);
         setMask(*fullArea);
+	//setupAreas(fullArea, noArea);
 	this->setWindowOpacity(1.0);
   }
  
@@ -225,4 +233,10 @@ void MainWindow::paintEvent(QPaintEvent *event)
 bool MainWindow::x11Event(XEvent * event)
 {
   QWidget::x11Event(event);
+}
+
+void MainWindow::setupAreas(QRegion *fullArea, QRegion *noArea)
+{
+  fullArea = new QRegion(0, 0, QMainWindow::width(), QMainWindow::height(), QRegion::Rectangle);
+  noArea = new QRegion( 15,15,50,50, QRegion::Rectangle);
 }
