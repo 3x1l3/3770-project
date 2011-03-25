@@ -6,7 +6,8 @@
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-
+  
+  this->show();
   label = new QLabel("Type password: ");
   password = new PasswordEdit();
   button = new QPushButton("Show");
@@ -39,6 +40,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   fullArea = new QRegion(0, 0, QWidget::width(), QWidget::height(),QRegion::Rectangle);
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   
+  cout << width() << " " << height() << "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n";
+  
   underClick = false;
   
   this->setMouseTracking(true);
@@ -56,6 +59,26 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   //startTimer(10);
  
   //QWidget::setWindowOpacity(0.5);
+  
+  
+  
+    /// Creating system tray icon and menu functionality ///
+    QSystemTrayIcon *tray = new QSystemTrayIcon(QIcon(QPixmap("shutter.png")),this);
+    QMenu *context_menu = new QMenu(this);
+    QAction *exit = new QAction("Exit", this);
+    exit->connect(exit, SIGNAL(triggered()), this, SLOT(close()));
+    QAction *hide = new QAction("Hide", this);
+    hide->connect(hide, SIGNAL(triggered()), this, SLOT(hide()));
+    QAction *show = new QAction("Show", this);
+    show->connect(show, SIGNAL(triggered()), this, SLOT(show() ) );
+   
+    tray->show();
+    context_menu->addAction(show);
+    context_menu->addAction(hide);
+    context_menu->addAction(exit);
+    tray->setContextMenu(context_menu);
+  
+  
 	
 }
 
@@ -66,6 +89,7 @@ void MainWindow::showPassword() {
 void MainWindow::setTransparency()
 {
   underClick = true;
+  this->showFullScreen();
   update();
 }
 
@@ -182,7 +206,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   if(underClick == true)
   {
         setMask(*noArea);
-	this->setWindowOpacity(0.5);
+	this->setWindowOpacity(0.05);
 	cout << "\nlolmask\n";
   }
   else
