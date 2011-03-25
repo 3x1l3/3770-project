@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   x = 0;
   y = 0;
   
-  setWindowFlags(Qt::WindowStaysOnTopHint | Qt::WindowTitleHint);
+  setWindowFlags(Qt::WindowStaysOnTopHint);
 /*  setAttribute(Qt::WA_MouseTracking);
   setAttribute(Qt::WA_MouseNoMask);
   setAttribute(Qt::WA_Hover);*/
@@ -70,11 +70,18 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction *show = new QAction("Show", this);
     show->connect(show, SIGNAL(triggered()), this, SLOT(show() ) );
    
+    //Action to toggle whether or not the application is 'active', i.e. accepts mouse events
+    QAction *toggleActive = new QAction("Toggle Active", this);
+    toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
+    
     tray->show();
     context_menu->addAction(show);
     context_menu->addAction(hide);
-    context_menu->addAction(exit);
+    context_menu->addSeparator();
+    context_menu->addAction(toggleActive);
+    context_menu->addSeparator();
     tray->setContextMenu(context_menu);
+    context_menu->addAction(exit);
 	
 }
 
@@ -84,8 +91,9 @@ void MainWindow::showPassword() {
 
 void MainWindow::setTransparency()
 {
-  underClick = true;
+  underClick = !underClick;
   this->showFullScreen();
+  password->setInvisible(true);
   update();
 }
 
@@ -202,7 +210,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   if(underClick == true)
   {
         setMask(*noArea);
-	this->setWindowOpacity(0.0);
+	this->setWindowOpacity(0.5);
 	cout << "\nlolmask\n";
   }
   else
@@ -216,9 +224,5 @@ void MainWindow::paintEvent(QPaintEvent *event)
 
 bool MainWindow::x11Event(XEvent * event)
 {
-      
   QWidget::x11Event(event);
-  
-  
-  
 }
