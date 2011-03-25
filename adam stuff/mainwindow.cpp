@@ -47,7 +47,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   x = 0;
   y = 0;
   
-  setWindowFlags(Qt::WindowStaysOnTopHint);
+  setWindowFlags(Qt::WindowStaysOnTopHint | Qt::WindowTitleHint);
 /*  setAttribute(Qt::WA_MouseTracking);
   setAttribute(Qt::WA_MouseNoMask);
   setAttribute(Qt::WA_Hover);*/
