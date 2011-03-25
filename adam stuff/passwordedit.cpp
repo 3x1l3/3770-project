@@ -203,7 +203,7 @@ void PasswordEdit::paintEvent(QPaintEvent *event)
   QLineEdit::paintEvent(event);
   QPainter painter(this);
     
-  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,width(),height()));
+  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QLineEdit::width(),QLineEdit::height()));
   QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
   
   
@@ -211,6 +211,7 @@ void PasswordEdit::paintEvent(QPaintEvent *event)
   myPolygon = myPolygon.subtracted(mousePolygon);
   cout << x << " " << y << " " << isInvisible << " " << true << " " << underMouse() <<  endl;
   *noArea = QRegion(myPolygon,Qt::OddEvenFill );
+  *fullArea = QRegion(QRect(0,0,QLineEdit::width(), QLineEdit::height()));
   
   if(isInvisible == true && underMouse() == true)
   {
