@@ -108,15 +108,6 @@ void MainWindow::setTransparency()
 void MainWindow::timerEvent(QTimerEvent * event)
 {
  
-  pos = QPoint(x, y);
-  
-  QMouseEvent mouseevent(QEvent::MouseMove, pos, Qt::LeftButton, 0, 0);
-  cerr << "\nEvent Created!\n";
-  QApplication::sendEvent(this, &mouseevent);
-  
-  //update();
-  //repaint();
-  cout << "\ntimer\n";
   
 }
 
