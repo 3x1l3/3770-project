@@ -13,6 +13,7 @@
 #include <QMouseEvent>
 #include <QMenu>
 #include <QAction>
+#include <QMessageBox>
 
 class photos : public QWidget
 {
@@ -20,6 +21,8 @@ class photos : public QWidget
 
 public slots:
     void loadImages(QString);
+    void showContextMenu(const QPoint&);
+    void changeDir();
 
 public:
     QStringList files;
@@ -35,12 +38,15 @@ public:
     QTimer *timer;
     QString directory;
     QMenu *context;
+    QMessageBox *nofiles;
+
+    QAction *changedirAct;
 
 
 
 private:
     void timerEvent(QTimerEvent * event);
-    void mousePressEvent(QMouseEvent *event);
+
 
 };
 

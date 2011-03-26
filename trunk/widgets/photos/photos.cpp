@@ -13,15 +13,22 @@ photos::photos(QWidget *parent)
     label->setScaledContents(true);
     image = new QPixmap();
     this->setFixedSize(300, 200);
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    // imageDialog->show();
 
-    imageDialog->show();
-
-    context = new QMenu(this);
-    context->addAction(new QAction("Test", context));
+    context = new QMenu();
+    changedirAct = new QAction(tr("Select pictures directory"), this);
+    context->addAction(changedirAct);
 
     label->setPixmap(*image);
     label->resize(0.25 * label->pixmap()->size());
 
+    nofiles = new QMessageBox(this);
+    nofiles->setText("No files found in directory");
+
+    connect(changedirAct, SIGNAL(triggered()), this, SLOT(changeDir()));
+
+    connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
     connect(imageDialog, SIGNAL(fileSelected(QString)), this, SLOT(loadImages(QString)));
 
 }
@@ -33,13 +40,11 @@ void photos::loadImages(QString dir) {
   directoryAccess->setFilter(QDir::Files);
   this->files = directoryAccess->entryList(this->filter, QDir::Files);
 
-  QStringList::const_iterator constIterator;
-     for (constIterator = this->files.constBegin(); constIterator != this->files.constEnd();
-            ++constIterator)
-         std::cout << (*constIterator).toLocal8Bit().constData() << std::endl;
-
+  if (this->files.empty()) {
+      this->nofiles->show();
+  } else {
      startTimer(1000);
-
+ }
 
    this->currentfile = 0;
 
@@ -49,6 +54,7 @@ void photos::timerEvent(QTimerEvent *event) {
 
     delete this->image;
     this->image = new QPixmap();
+    if (!this->files.empty()) {
     if (this->currentfile < this->files.size()-1) {
 
      image->load(this->directory + this->files.at(this->currentfile));
@@ -60,6 +66,7 @@ void photos::timerEvent(QTimerEvent *event) {
         this->image->load(this->directory + this->files.at(this->currentfile) );
         this->currentfile = 0;
     }
+}
     label->setPixmap(*image);
     label->resize(0.25 * label->pixmap()->size());
 
@@ -67,17 +74,20 @@ void photos::timerEvent(QTimerEvent *event) {
 
 }
 
-void photos::mousePressEvent(QMouseEvent *event) {
-    QWidget::mousePressEvent(event);
 
-    if (event->button() == Qt::RightButton) {
-        this->context->move(event->pos().x(), event->pos().y()+20);
-        this->context->exec();
+
+void photos::showContextMenu(const QPoint & pos) {
+    QPoint globalpos = this->mapToGlobal(pos);
+    //QAction* selecteditem = this->context->exec(globalpos);
+    QAction* selecteditem = this->context->exec(globalpos);
+    if (selecteditem) {
 
     }
-
 }
 
+void photos::changeDir() {
+    this->imageDialog->show();
+}
 
 photos::~photos()
 {
