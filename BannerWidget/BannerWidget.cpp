@@ -31,7 +31,13 @@ BannerWidget::BannerWidget(QWidget *parent): QWidget(parent)
   openEditWindowAction->setStatusTip("Opens the settings for this widget");
   connect (openEditWindowAction, SIGNAL(triggered()), this, SLOT(openEditWindow()));
   
-  setFixedSize(150,40);
+  //setFixedSize(175,35);
+  
+  
+  this->startTimer(100);
+  
+  bannerXCoordinate = 10;
+  bannerYCoordinate = 10;
 }
 
 void BannerWidget::showContextMenu(const QPoint &pos) {
@@ -54,6 +60,7 @@ void BannerWidget::openEditWindow()
   
   if (ok)
   {
+
     bannerString=result;
     updateBannerText();
     
@@ -69,7 +76,42 @@ void BannerWidget::openEditWindow()
 
 void BannerWidget::updateBannerText()
 {
+  delete banner;
+  delete this->layout();
+  banner = new QLabel();
   banner->setText(bannerString);
+  banner->adjustSize();
+  QVBoxLayout *layout = new QVBoxLayout();
+  layout->addWidget(banner);
+    
+  setLayout(layout);
+  
   this->update();
 }
 
+void BannerWidget::paintEvent(QPaintEvent *event)
+{
+  banner->move(bannerXCoordinate, bannerYCoordinate);
+}
+
+void BannerWidget::timerEvent(QTimerEvent * event)
+{
+  
+  banner->adjustSize();
+  bannerXCoordinate -= 1;
+  
+  if (bannerXCoordinate + banner->width() == 0)
+  {
+    bannerXCoordinate = this->width();
+  }
+  if(bannerXCoordinate + banner->width() < 0)
+  {
+    bannerXCoordinate = this->width();
+  }
+  
+  
+  std::cout<<"ban x="<<bannerXCoordinate<<std::endl;
+  std::cout<<"banx +bannerWidth"<<bannerXCoordinate + banner->width()<<std::endl;
+  std::cout<<"ban width="<<banner->width()<<std::endl;
+  this->update();
+}
