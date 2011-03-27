@@ -14,7 +14,6 @@ photos::photos(QWidget *parent)
     image = new QPixmap();
     this->setFixedSize(300, 200);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
-    // imageDialog->show();
 
     context = new QMenu();
     changedirAct = new QAction(tr("Select pictures directory"), this);
@@ -78,7 +77,7 @@ void photos::timerEvent(QTimerEvent *event) {
 
 void photos::showContextMenu(const QPoint & pos) {
     QPoint globalpos = this->mapToGlobal(pos);
-    //QAction* selecteditem = this->context->exec(globalpos);
+
     QAction* selecteditem = this->context->exec(globalpos);
     if (selecteditem) {
 
