@@ -16,9 +16,12 @@ private:
 
 signals:
    void buttonText(QString);
+   void clearText();
+   void negateText();
 
 public slots:
    void isPressed();
+   void negate();
 
 };
 
