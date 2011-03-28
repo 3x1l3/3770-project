@@ -8,3 +8,7 @@ void CalcButton::isPressed() {
     emit buttonText(this->text());
 }
 
+void CalcButton::negate() {
+
+}
+

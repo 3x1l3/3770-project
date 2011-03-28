@@ -64,7 +64,7 @@ void Calc::buildButtons() {
     clear = new CalcButton();
     clear->setText("Clear");
     layout->addWidget(clear, 2, 2, 1, 1);
-     connect(clear, SIGNAL(clearText()), outputbox, SLOT(clear()));
+     connect(clear, SIGNAL(clicked()), outputbox, SLOT(clear()));
 
     add = new CalcButton();
     add->setText("+");
