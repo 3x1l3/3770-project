@@ -22,7 +22,7 @@ public:
     ~Calc();
 
 private:
-    QLineEdit *outputbox;
+    CalcLineEdit *outputbox;
     QGridLayout *layout;
 
     QProcess *bc;

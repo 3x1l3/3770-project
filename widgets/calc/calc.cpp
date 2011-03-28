@@ -64,7 +64,7 @@ void Calc::buildButtons() {
     clear = new CalcButton();
     clear->setText("Clear");
     layout->addWidget(clear, 2, 2, 1, 1);
-     connect(two, SIGNAL(buttonText(QString)), outputbox, SLOT(setText(QString)));
+     connect(clear, SIGNAL(clearText()), outputbox, SLOT(clear()));
 
     add = new CalcButton();
     add->setText("+");
@@ -84,6 +84,8 @@ void Calc::buildButtons() {
     negate = new CalcButton();
     negate->setText("Negate");
     layout->addWidget(negate, 2, 3, 1, 1);
+    connect(negate, SIGNAL(clicked()), this, SLOT(calculateResult()));
+     connect(negate, SIGNAL(clicked()), outputbox, SLOT(negateText()));
 
     divide = new CalcButton();
     divide->setText("/");
@@ -97,6 +99,7 @@ void Calc::buildButtons() {
     backspace = new CalcButton();
     backspace->setText("BKSP");
     layout->addWidget(backspace, 2, 0, 1, 1);
+    connect(backspace, SIGNAL(clicked()), outputbox, SLOT(doBackspace()));
 
     decimal = new CalcButton();
     decimal->setText(".");
@@ -123,11 +126,12 @@ void Calc::buttonPressed(const QPushButton& button) {
 
 void Calc::calculateResult() {
     QStringList list;
-    list << "-c" << "echo " + this->outputbox->text() + " | /usr/bin/bc";
+    list << "-c" << "echo " + this->outputbox->text() + " | /usr/bin/bc -l";
     bc->start("/bin/sh", list);
     bc->waitForFinished();
     QString output = QString(bc->readAllStandardOutput());
-    emit result(output);
+
+    emit result(output.trimmed());
     bc->terminate();
 }
 
