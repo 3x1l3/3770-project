@@ -8,6 +8,10 @@
 
 #include "WidgetManager.h"
 
+#include "BannerWidget.h"
+
+
+
 class QLabel;
 class PasswordEdit;
 class QPushButton;
@@ -24,6 +28,9 @@ private slots:
 
   void showPassword();
   void setTransparency();
+  
+signals:
+  void setTransparencyOnWidgets();
   
 private:
   
@@ -49,6 +56,8 @@ protected:
   QPoint pos;
   bool underClick;
   bool fired;
+  
+  WidgetManager *manager;
 
 };
 

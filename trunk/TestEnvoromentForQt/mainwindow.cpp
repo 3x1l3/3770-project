@@ -84,17 +84,32 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     context_menu->addAction(exit);
     
     
-    WidgetManager *manager = new WidgetManager(this);
+    manager = new WidgetManager(this);
     QPushButton *button1 = new QPushButton();
     QPushButton *button2 = new QPushButton();
     QPushButton *button3 = new QPushButton();
     QPushButton *button4 = new QPushButton();
-    manager->addNewWidget("none", 0, 0, 0.8, button);
-    manager->addNewWidget("none", 0, 0, 0.7, button2);
-    manager->addNewWidget("none", 0, 0, 0.4, button3);
-    manager->addNewWidget("none", 0, 0, 0.2, button4);
+    BannerWidget *banner1 = new BannerWidget();
+    QTextEdit *textEdit1 = new QTextEdit();
+    button1->setMouseTracking(true);
+    button2->setMouseTracking(true);
+    button3->setMouseTracking(true);
+    button4->setMouseTracking(true);
+    banner1->setMouseTracking(true);
+    textEdit1->setMouseTracking(true);
+    manager->addNewWidget("button1", 0, 0, 0.8, button1);
+    manager->addNewWidget("button2", 0, 0, 0.7, button2);
+    manager->addNewWidget("button3", 0, 0, 0.4, button3);
+    manager->addNewWidget("", 0, 0, 0.2, button4);
+    manager->addNewWidget("scrollin'", 0, 0, 0.5, banner1);
+    manager->addNewWidget("textEdit1", 0,0,0.5, textEdit1);
     manager->drawWidgets();
 	
+    
+    manager->toggleTransparency(true);
+    manager->toggleTransparency(false);
+    
+    
 }
 
 void MainWindow::showPassword() {
@@ -108,11 +123,13 @@ void MainWindow::setTransparency()
   {
     this->showFullScreen();
     password->setInvisible(true);
+    manager->toggleTransparency(true);
   }
   else
   {
     this->showNormal();
     password->setInvisible(false);
+    manager->toggleTransparency(false);
   }
   update();
 }
@@ -125,18 +142,32 @@ void MainWindow::timerEvent(QTimerEvent * event)
 
 void MainWindow::mouseMoveEvent( QMouseEvent * event)
 {
-  
   QWidget::mouseMoveEvent(event);
   setMouseTracking(true);
   x = event->x();
   y = event->y();
-  cout << "Mouse moved, x is " << x << "and y is " << y << " and mouse is: " << hasMouseTracking() << " " << false << endl;
+  //cout << "Mouse moved, x is " << x << "and y is " << y << " and mouse is: "<<endl ;
   
-
-
   
-  update();
-  repaint();
+//   bool inWidget = false;
+//   for(int i =0;i<manager->dockWidgets.size(); i ++)
+//   {
+//     //cout<<manager->dockWidgets[i]->pos().x()<<" "<<manager->dockWidgets[i]->pos().y()<<endl;
+//     if (event->x() >= manager->dockWidgets[i]->pos().x()-20 && event->x() <= manager->dockWidgets[i]->width()+20 && event->y() >= manager->dockWidgets[i]->pos().y()-20 && event->y() <= manager->dockWidgets[i]->height()+20)
+//     {
+//       inWidget = true;
+//       cout<<"IN MY LOOP"<<endl;
+//       manager->dockWidgets[i]->setFocus();
+//     }
+//   }
+// 
+// 
+//   if(inWidget == false)
+//   {
+    update();
+    repaint();
+//   }
+
 }
   
 void MainWindow::mousePressEvent(QMouseEvent * event)
@@ -145,29 +176,7 @@ void MainWindow::mousePressEvent(QMouseEvent * event)
     x= event->x();
     y = event->y();
     
-    //this->hide();
-   // this->setVisible(false);
 
-    /*
-   if(sendBack == true)
-   {
-     pos = event->pos();
-     cerr << "x is " << x << " and y is " << y;
-     QMouseEvent mouseevent(QEvent::MouseButtonPress, pos, event->button(), event->buttons(), 0);
-     cerr << "\nEvent Created!\n";
-     QApplication::sendEvent(this, &mouseevent);
-    // QTest::mouseClick( this, Qt::LeftButton, 0, pos);
-
-          QMouseEvent mouseevent2(QEvent::MouseButtonRelease, pos, event->button(), event->buttons(), 0);
-     cerr << "\nEvent Created!\n";
-     QApplication::sendEvent(this, &mouseevent2);
-     cerr << "\nEvent Sent! \n";
-     this->show();
-
-   }
-    
-    */
-   // this->show();
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent * event)
@@ -183,35 +192,24 @@ void MainWindow::paintEvent(QPaintEvent *event)
   
   
   
-  cout << "\n\nPainted: X " << x << " and Y " << y << endl;
+  //cout << "\n\nPainted: X " << x << " and Y " << y << endl;
   
   pos = QCursor::pos();
   painter.setOpacity(1.0);
-  //x = pos.x();
-  //y = pos.y();
-  
-  /*QVector <QPoint> wholeVector (4);
-  wholeVector.append(QPoint::QPoint(0,0));
-  wholeVector.append(QPoint::QPoint(0, QWidget::height()));
-  wholeVector.append(QPoint::QPoint(QWidget::width(), QWidget::height()));
-  wholeVector.append(QPoint::QPoint(QWidget::width(), 0));
 
-  
-  QPolygon myPolygon = QPolygon::QPolygon(wholeVector);
-  
-  QVector <QPoint> mouseBox (4);
-  mouseBox.append(QPoint::QPoint(x-8, y-8));
-  mouseBox.append(QPoint::QPoint(x-8, y+8));
-  mouseBox.append(QPoint::QPoint(x+8, y+8));
-  mouseBox.append(QPoint::QPoint(x+8, y-8));
-  */
-  
   QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QMainWindow::width(), QMainWindow::height()));
   QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
   
   
   
   myPolygon = myPolygon.subtracted(mousePolygon);
+  
+  
+//   for(int i =0;i<manager->dockWidgets.size(); i ++)
+//    {
+//      mousePolygon = QPolygon::QPolygon(QRect(manager->dockWidgets[i]->pos().x(), manager->dockWidgets[i]->pos().y(),manager->dockWidgets[i]->width(), manager->dockWidgets[i]->height()));
+//      myPolygon = myPolygon.subtracted(mousePolygon);
+//    }
   
   *noArea = QRegion(myPolygon,Qt::OddEvenFill );
   *fullArea = QRegion(QRect(0, 0, QMainWindow::width(), QMainWindow::height()));
@@ -220,14 +218,14 @@ void MainWindow::paintEvent(QPaintEvent *event)
   {
         setMask(*noArea);
 	this->setWindowOpacity(0.5);
-	cout << "\nlolmask\n";
+	//cout << "\nlolmask\n";
+	cout<<"noArea"<<endl;
   }
   else
   {
-	//setupAreas(fullArea, noArea);
         setMask(*fullArea);
-	//setupAreas(fullArea, noArea);
 	this->setWindowOpacity(1.0);
+	cout<<"full"<<endl;
   }
  
   
