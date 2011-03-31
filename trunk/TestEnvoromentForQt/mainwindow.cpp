@@ -225,7 +225,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   {
         setMask(*fullArea);
 	this->setWindowOpacity(1.0);
-	cout<<"full"<<endl;
+        //cout<<"full"<<endl;
   }
  
   

@@ -14,6 +14,10 @@ WidgetManager::WidgetManager(QMainWindow *parent)
     DockableWidget *dock = new DockableWidget();
     dock->setWindowTitle(label);
     
+    QWidget *titlebar = new QWidget();
+    dock->setTitleBarWidget(titlebar);
+
+
     if(features == 0)
     {
       dock->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetFloatable);
@@ -29,6 +33,7 @@ WidgetManager::WidgetManager(QMainWindow *parent)
     
     dockWidgets.push_back(dock);
   }
+
   void WidgetManager::drawWidgets()
   {
     for (int i = 0; i < dockWidgets.size(); i ++)
