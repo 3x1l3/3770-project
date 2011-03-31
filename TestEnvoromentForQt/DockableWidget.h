@@ -4,8 +4,9 @@
 
 #include <QLineEdit>
 #include <QDockWidget>
+#include <QToolBar>
 
-class DockableWidget : public QDockWidget {
+class DockableWidget : public QToolBar {
   
   Q_OBJECT
   
@@ -26,6 +27,12 @@ class DockableWidget : public QDockWidget {
     
     QRegion *noArea;
     QRegion *fullArea;
+    
+    void emitUndock();
+    
+  public slots:
+    void recieveMouseXY(int x, int y);
+    
     
   private:
     

@@ -38,6 +38,8 @@ BannerWidget::BannerWidget(QWidget *parent): QWidget(parent)
   
   bannerXCoordinate = 10;
   bannerYCoordinate = 10;
+  
+  banner->setMouseTracking(true);
 }
 
 void BannerWidget::showContextMenu(const QPoint &pos) {

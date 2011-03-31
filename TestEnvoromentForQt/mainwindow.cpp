@@ -54,7 +54,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   //setAttribute(Qt::WA_X11DoNotAcceptFocus);
   fired = false;
 
-  //startTimer(10);
+  startTimer(50);
  
   //QWidget::setWindowOpacity(0.5);
   
@@ -83,27 +83,54 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     tray->setContextMenu(context_menu);
     context_menu->addAction(exit);
     
-    
+    cout<<"BEFORE"<<endl;
     manager = new WidgetManager(this);
+    cout<<"BEFORE1"<<endl;
     QPushButton *button1 = new QPushButton();
+    cout<<"BEFORE2"<<endl;
     QPushButton *button2 = new QPushButton();
     QPushButton *button3 = new QPushButton();
     QPushButton *button4 = new QPushButton();
     BannerWidget *banner1 = new BannerWidget();
+    cout<<"BEFORE3"<<endl;
     QTextEdit *textEdit1 = new QTextEdit();
+    textEdit1->setFixedSize(100,100);
+    cout<<"BEFORE4"<<endl;
     button1->setMouseTracking(true);
+    cout<<"BEFORE5"<<endl;
     button2->setMouseTracking(true);
+    cout<<"BEFORE6"<<endl;
     button3->setMouseTracking(true);
+    cout<<"BEFORE7"<<endl;
     button4->setMouseTracking(true);
+    cout<<"BEFORE8"<<endl;
     banner1->setMouseTracking(true);
+    cout<<"BEFORE9"<<endl;
     textEdit1->setMouseTracking(true);
+    cout<<"BEFORE10"<<endl;
     manager->addNewWidget("button1", 0, 0, 0.8, button1);
+    cout<<"BEFORE11"<<endl;
     manager->addNewWidget("button2", 0, 0, 0.7, button2);
+    cout<<"BEFORE12"<<endl;
     manager->addNewWidget("button3", 0, 0, 0.4, button3);
+    cout<<"BEFORE13"<<endl;
     manager->addNewWidget("", 0, 0, 0.2, button4);
+    cout<<"BEFORE14"<<endl;
     manager->addNewWidget("scrollin'", 0, 0, 0.5, banner1);
+    cout<<"BEFORE15"<<endl;
     manager->addNewWidget("textEdit1", 0,0,0.5, textEdit1);
+    cout<<"BEFORE16"<<endl;
     manager->drawWidgets();
+    cout<<"AFTER"<<endl;
+    
+    for (int i = 0; i < manager->dockWidgets.size();i ++)
+    {
+      connect(this, SIGNAL(sendOutMouseXY(int, int)), manager->dockWidgets[i], SLOT(recieveMouseXY(int, int)));
+    }
+    cout<<"AFTER1"<<endl;
+    
+    
+    //for loop here to connect all the widgets to the time event emitting the mouse position
 	
     
     manager->toggleTransparency(true);
@@ -136,45 +163,64 @@ void MainWindow::setTransparency()
 
 void MainWindow::timerEvent(QTimerEvent * event)
 {
+  //emit the signla here with the global x and y mouse coordinates
+  Display *d;
+  Window inwin;      /* root window the pointer is in */
+  Window inchildwin; /* child win the pointer is in */
+  int rootx, rooty; /* relative to the "root" window; we are not interested in these,
+                       but we can't pass NULL */
+  int childx, childy;  /* the values we are interested in */
+  Atom atom_type_prop; /* not interested */
+  int actual_format;   /* should be 32 after the call */
+  unsigned int mask;   /* status of the buttons */
+  unsigned long n_items, bytes_after_ret;
+  Window *props; /* since we are interested just in the first value, which is
+		    a Window id */
  
+  /* default DISPLAY */
+  d = XOpenDisplay(NULL); 
+ 
+  /* ask for active window (no error check); the client must be freedesktop
+     compliant */
+  (void)XGetWindowProperty(d, DefaultRootWindow(d),
+			   XInternAtom(d, "_NET_ACTIVE_WINDOW", True),
+			   0, 1, False, AnyPropertyType,
+			   &atom_type_prop, &actual_format,
+			   &n_items, &bytes_after_ret, (unsigned char**)&props);
+
+  XQueryPointer(d, props[0], &inwin,  &inchildwin,
+		&rootx, &rooty, &childx, &childy, &mask);
+
+ 	//printf("relative to active window: %d,%d\n", rootx, rooty);
+
+  XFree(props);           /* free mem */
+  (void)XCloseDisplay(d); /* and close the display */
+  
+  cout<<rootx<<" "<<rooty<<endl;
+  this->x = rootx;
+  this->y = rooty;
+  emit this->sendOutMouseXY(rootx,rooty);
   
 }
 
 void MainWindow::mouseMoveEvent( QMouseEvent * event)
 {
   QWidget::mouseMoveEvent(event);
-  setMouseTracking(true);
-  x = event->x();
-  y = event->y();
-  //cout << "Mouse moved, x is " << x << "and y is " << y << " and mouse is: "<<endl ;
-  
-  
-//   bool inWidget = false;
-//   for(int i =0;i<manager->dockWidgets.size(); i ++)
-//   {
-//     //cout<<manager->dockWidgets[i]->pos().x()<<" "<<manager->dockWidgets[i]->pos().y()<<endl;
-//     if (event->x() >= manager->dockWidgets[i]->pos().x()-20 && event->x() <= manager->dockWidgets[i]->width()+20 && event->y() >= manager->dockWidgets[i]->pos().y()-20 && event->y() <= manager->dockWidgets[i]->height()+20)
-//     {
-//       inWidget = true;
-//       cout<<"IN MY LOOP"<<endl;
-//       manager->dockWidgets[i]->setFocus();
-//     }
-//   }
-// 
-// 
-//   if(inWidget == false)
-//   {
-    update();
-    repaint();
-//   }
+
+//   x = event->x();
+//   y = event->y();
+ 
+  update();
+  repaint();
+
 
 }
   
 void MainWindow::mousePressEvent(QMouseEvent * event)
 {
     
-    x= event->x();
-    y = event->y();
+//     x= event->x();
+//     y = event->y();
     
 
 }
@@ -198,7 +244,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
   painter.setOpacity(1.0);
 
   QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QMainWindow::width(), QMainWindow::height()));
-  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-6, y-6, 15, 15));
+  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-15, y-15, 30, 30));
   
   
   
@@ -219,7 +265,7 @@ void MainWindow::paintEvent(QPaintEvent *event)
         setMask(*noArea);
 	this->setWindowOpacity(0.5);
 	//cout << "\nlolmask\n";
-	cout<<"noArea"<<endl;
+	//cout<<"noArea"<<endl;
   }
   else
   {
