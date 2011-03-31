@@ -5,6 +5,10 @@
 #include <QtGui>
 #include <QWidget>
 #include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/Xutil.h>
+#include <X11/Xresource.h>
+
 
 #include "WidgetManager.h"
 
@@ -31,6 +35,7 @@ private slots:
   
 signals:
   void setTransparencyOnWidgets();
+  void sendOutMouseXY(int x, int y);
   
 private:
   

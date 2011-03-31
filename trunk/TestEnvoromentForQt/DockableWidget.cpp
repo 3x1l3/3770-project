@@ -3,7 +3,7 @@
 #include <iostream>
 using namespace std;
 
-DockableWidget::DockableWidget( QWidget * parent) : QDockWidget( parent )
+DockableWidget::DockableWidget( QWidget * parent) : QToolBar( parent )
 {
   isInvisible = false;
   
@@ -12,7 +12,7 @@ DockableWidget::DockableWidget( QWidget * parent) : QDockWidget( parent )
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
 }
 
-DockableWidget::DockableWidget( QString label) : QDockWidget( label )
+DockableWidget::DockableWidget( QString label) : QToolBar( label )
 {
   isInvisible = false;
   
@@ -44,7 +44,7 @@ void DockableWidget::leaveEvent(QEvent* event)
 
 void DockableWidget::mouseMoveEvent(QMouseEvent * event)
 {
- QDockWidget::mouseMoveEvent(event); 
+ QToolBar::mouseMoveEvent(event); 
  
  x = event->x();
  y = event->y();
@@ -54,16 +54,16 @@ void DockableWidget::mouseMoveEvent(QMouseEvent * event)
 
 void DockableWidget::paintEvent(QPaintEvent *event)
 {
-  QDockWidget::paintEvent(event);
+  QToolBar::paintEvent(event);
   QPainter painter(this);
     
-  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QDockWidget::width(),QDockWidget::height()));
+  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QToolBar::width(),QToolBar::height()));
   QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-10, y-10, 20, 20));
   
   myPolygon = myPolygon.subtracted(mousePolygon);
   //cout << x << " " << y << " " << isInvisible << " " << true << " " << underMouse() <<  endl;
   *noArea = QRegion(myPolygon,Qt::OddEvenFill );
-  *fullArea = QRegion(QRect(0,0,QDockWidget::width(), QDockWidget::height()));
+  *fullArea = QRegion(QRect(0,0,QToolBar::width(), QToolBar::height()));
   
   if(isInvisible == true && underMouse() == true)
   {
@@ -71,4 +71,15 @@ void DockableWidget::paintEvent(QPaintEvent *event)
         setMask(*noArea);
   }
 
+}
+
+void DockableWidget::emitUndock()
+{
+  emit topLevelChanged(true);
+}
+
+void DockableWidget::recieveMouseXY(int x, int y)
+{
+  this->x = x;
+  this->y = y;
 }
