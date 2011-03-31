@@ -23,6 +23,7 @@ class QPushButton;
 class MainWindow : public QMainWindow {
 
   Q_OBJECT
+    QWidget* Q3MainWindow;
   
 public:
 

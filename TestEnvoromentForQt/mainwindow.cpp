@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "passwordedit.h"
+#include <QDragLeaveEvent>
 
 #include <QtGui>
 #include <iostream>
@@ -123,9 +124,15 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     manager->drawWidgets();
     cout<<"AFTER"<<endl;
     
+    
     for (int i = 0; i < manager->dockWidgets.size();i ++)
     {
       connect(this, SIGNAL(sendOutMouseXY(int, int)), manager->dockWidgets[i], SLOT(recieveMouseXY(int, int)));
+      manager->dockWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+      manager->dockWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
+      
+      manager->dockWidgets.at(i)->show();
+      
     }
     cout<<"AFTER1"<<endl;
     
@@ -235,7 +242,6 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
   QWidget::paintEvent(event);
   QPainter painter(this);
-  
   
   
   //cout << "\n\nPainted: X " << x << " and Y " << y << endl;

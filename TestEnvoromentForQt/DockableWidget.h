@@ -29,6 +29,7 @@ class DockableWidget : public QToolBar {
     QRegion *fullArea;
     
     void emitUndock();
+    void DropEvent(QDropEvent*);
     
   public slots:
     void recieveMouseXY(int x, int y);

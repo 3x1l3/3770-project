@@ -4,6 +4,7 @@
 #include <QLineEdit>
 #include <QMessageBox>
 #include <QtGui>
+#include <QDockWidget>
 
 #include <iostream>
 
