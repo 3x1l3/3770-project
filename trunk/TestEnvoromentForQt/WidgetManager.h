@@ -24,8 +24,8 @@ public:
 protected:
 
 
-  
   QMainWindow *parent;
+  
   
 public slots:
   void toggleTransparency(bool);

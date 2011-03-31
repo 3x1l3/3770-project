@@ -63,7 +63,7 @@ WidgetManager::WidgetManager()
   }
   void WidgetManager::addWidgetsToMainWindow(QMainWindow* parent)
   {
-    for (int i = 0; i < dockWidgets.size(); i ++)
+    for (int i = 0; i < dockWidgets.size(); i++)
     {
       parent->addDockWidget(Qt::TopDockWidgetArea, dockWidgets[i]);
     }

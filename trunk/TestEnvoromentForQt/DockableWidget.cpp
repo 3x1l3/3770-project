@@ -83,3 +83,8 @@ void DockableWidget::recieveMouseXY(int x, int y)
   this->x = x;
   this->y = y;
 }
+
+void DockableWidget::DropEvent(QDropEvent* event)
+{
+  QWidget::dropEvent(event);
+}
