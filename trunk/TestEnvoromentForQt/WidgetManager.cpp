@@ -14,8 +14,7 @@ WidgetManager::WidgetManager(QMainWindow *parent)
     DockableWidget *dock = new DockableWidget();
     dock->setWindowTitle(label);
     
-    QWidget *titlebar = new QWidget();
-    dock->setTitleBarWidget(titlebar);
+
 
 
     if(features == 0)
