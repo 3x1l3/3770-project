@@ -95,6 +95,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     BannerWidget *banner1 = new BannerWidget();
     cout<<"BEFORE3"<<endl;
     QTextEdit *textEdit1 = new QTextEdit();
+    
+
+    
     textEdit1->setFixedSize(100,100);
     cout<<"BEFORE4"<<endl;
     button1->setMouseTracking(true);
@@ -128,22 +131,25 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     for (int i = 0; i < manager->dockWidgets.size();i ++)
     {
       connect(this, SIGNAL(sendOutMouseXY(int, int)), manager->dockWidgets[i], SLOT(recieveMouseXY(int, int)));
-      manager->dockWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+      manager->dockWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |Qt::X11BypassWindowManagerHint);
       manager->dockWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
       
       manager->dockWidgets.at(i)->show();
-      
+      //might be useful in the future for RANDOM POSITIONING of Widgets
+   //   manager->dockWidgets.at(i)->setFocus();
+   //   manager->dockWidgets.at(i)->move(manager->dockWidgets.at(i)->pos().x()+1,manager->dockWidgets.at(i)->pos().y()+1);
     }
+
     cout<<"AFTER1"<<endl;
     
     
     //for loop here to connect all the widgets to the time event emitting the mouse position
-	
+	/*
     
     manager->toggleTransparency(true);
     manager->toggleTransparency(false);
-    
-    
+    */
+
 }
 
 void MainWindow::showPassword() {
@@ -158,6 +164,7 @@ void MainWindow::setTransparency()
     this->showFullScreen();
     password->setInvisible(true);
     manager->toggleTransparency(true);
+    this->hide();
   }
   else
   {
@@ -242,7 +249,8 @@ void MainWindow::paintEvent(QPaintEvent *event)
 {
   QWidget::paintEvent(event);
   QPainter painter(this);
-  
+//  this->showNormal();
+//  this->hide();
   
   //cout << "\n\nPainted: X " << x << " and Y " << y << endl;
   

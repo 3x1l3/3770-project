@@ -32,7 +32,7 @@ WidgetManager::WidgetManager(QMainWindow *parent)
     
 //     dock->show();
     
-    dock->move(600, 600);
+    dock->move(400, 600);
     
     dockWidgets.push_back(dock);
   }
@@ -45,6 +45,8 @@ WidgetManager::WidgetManager(QMainWindow *parent)
       //this is for trying to get the widgets to undock when the program starts,
       //but so far no progress.
       dockWidgets[i]->emitUndock();
+      
+
     }
   }
 
