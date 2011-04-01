@@ -125,6 +125,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     cout<<"BEFORE15"<<endl;
     manager->addNewWidget("textEdit1", 0,0,0.5, textEdit1);
     cout<<"BEFORE16"<<endl;
+    
+    photos* thing = new photos();
+    thing->setMinimumSize(300, 300);
+    manager->addNewWidget("test", 0, 0, 0.5, thing);
+    
+    QTextEdit* text = new QTextBrowser();
+    
+    DockWidget* DW = new DockWidget();
+    
+    QHBoxLayout* lay = new QHBoxLayout(DW);
+    lay->addWidget(text);
+    
+    DW->setLayout(lay);
+    
+    manager->addNewWidget("fuck", 0, 0, 0.5, text);
+    
     manager->drawWidgets();
     cout<<"AFTER"<<endl;
     
