@@ -79,3 +79,11 @@ void PasswordEdit::paintEvent(QPaintEvent *event)
   }
 
 }
+
+void PasswordEdit::toggleInvisible()
+{
+  
+  isInvisible = !isInvisible;
+  
+  
+}

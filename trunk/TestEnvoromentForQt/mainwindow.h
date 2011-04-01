@@ -17,6 +17,9 @@
 #include "photos.h"
 #include "docktextedit.h"
 
+#include "photos.h"
+
+
 
 class QLabel;
 class PasswordEdit;

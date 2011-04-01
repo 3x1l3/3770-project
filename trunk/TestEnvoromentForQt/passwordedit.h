@@ -48,6 +48,9 @@ class PasswordEdit : public QLineEdit {
     int x;
     int y;
     
+public slots:
+  void toggleInvisible();
+    
   
 };
 

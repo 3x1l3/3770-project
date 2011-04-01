@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'passwordedit.h'
 **
-** Created: Thu Mar 31 20:31:48 2011
+** Created: Thu Mar 31 21:49:46 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,18 +23,21 @@ static const uint qt_meta_data_PasswordEdit[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       0,    0, // methods
+       1,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
        0,       // signalCount
 
+ // slots: signature, parameters, type, tag, flags
+      14,   13,   13,   13, 0x0a,
+
        0        // eod
 };
 
 static const char qt_meta_stringdata_PasswordEdit[] = {
-    "PasswordEdit\0"
+    "PasswordEdit\0\0toggleInvisible()\0"
 };
 
 const QMetaObject PasswordEdit::staticMetaObject = {
@@ -64,6 +67,13 @@ int PasswordEdit::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     _id = QLineEdit::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
+    if (_c == QMetaObject::InvokeMetaMethod) {
+        switch (_id) {
+        case 0: toggleInvisible(); break;
+        default: ;
+        }
+        _id -= 1;
+    }
     return _id;
 }
 QT_END_MOC_NAMESPACE
