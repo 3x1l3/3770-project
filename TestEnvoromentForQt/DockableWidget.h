@@ -28,7 +28,6 @@ class DockableWidget : public QToolBar {
     QRegion *noArea;
     QRegion *fullArea;
     
-    void emitUndock();
     void DropEvent(QDropEvent*);
     
   public slots:

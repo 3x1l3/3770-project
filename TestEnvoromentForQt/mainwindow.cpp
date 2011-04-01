@@ -4,6 +4,7 @@
 
 #include <QtGui>
 #include <iostream>
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
@@ -23,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
  // parentWidget()->setMouseTracking(true);
 
   
- QHBoxLayout *layout = new QHBoxLayout();
+  QHBoxLayout *layout = new QHBoxLayout();
   layout->addWidget(label);
   layout->addWidget(password);
   layout->addWidget(button);
@@ -55,7 +56,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   //setAttribute(Qt::WA_X11DoNotAcceptFocus);
   fired = false;
 
-  startTimer(50);
+  startTimer(100);
  
   //QWidget::setWindowOpacity(0.5);
   
@@ -161,14 +162,14 @@ void MainWindow::setTransparency()
   underClick = !underClick;
   if(underClick)
   {
-    this->showFullScreen();
+    //this->showFullScreen();
     password->setInvisible(true);
     manager->toggleTransparency(true);
     this->hide();
   }
   else
   {
-    this->showNormal();
+    //this->showNormal();
     password->setInvisible(false);
     manager->toggleTransparency(false);
   }
@@ -210,7 +211,8 @@ void MainWindow::timerEvent(QTimerEvent * event)
   XFree(props);           /* free mem */
   (void)XCloseDisplay(d); /* and close the display */
   
-  cout<<rootx<<" "<<rooty<<endl;
+  
+  //cout<<rootx<<" "<<rooty<<endl;
   this->x = rootx;
   this->y = rooty;
   emit this->sendOutMouseXY(rootx,rooty);

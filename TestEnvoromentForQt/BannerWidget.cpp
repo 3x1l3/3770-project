@@ -79,6 +79,7 @@ void BannerWidget::updateBannerText()
   delete banner;
   delete this->layout();
   banner = new QLabel();
+  banner->setMouseTracking(true);
   banner->setText(bannerString);
   banner->adjustSize();
   QVBoxLayout *layout = new QVBoxLayout();

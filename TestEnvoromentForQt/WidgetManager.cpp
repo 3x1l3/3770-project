@@ -10,7 +10,6 @@ WidgetManager::WidgetManager(QMainWindow *parent)
   
   void WidgetManager::addNewWidget(QString label, int features, int allowedDockableArea, float windowOpacity, QWidget* mainWidget)
   {
-    
     DockableWidget *dock = new DockableWidget();
     dock->setWindowTitle(label);
     
@@ -30,42 +29,26 @@ WidgetManager::WidgetManager(QMainWindow *parent)
     
     dock->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     
-//     dock->show();
-    
-    dock->move(400, 600);
-    
     dockWidgets.push_back(dock);
   }
   void WidgetManager::drawWidgets()
   {
+    int right = 0;
     for (int i = 0; i < dockWidgets.size(); i ++)
     {
+      dockWidgets[i]->move(right, 400);
       this->parent->addToolBar(Qt::TopToolBarArea, dockWidgets[i]);
-      
-      //this is for trying to get the widgets to undock when the program starts,
-      //but so far no progress.
-      dockWidgets[i]->emitUndock();
-      
-
+      right += 65;
     }
   }
 
 
   void WidgetManager::toggleTransparency(bool onOff)
   {
-    if(onOff == true)
+
+    for (int i = 0; i < dockWidgets.size(); i ++)
     {
-      for (int i = 0; i < dockWidgets.size(); i ++)
-      {
-	dockWidgets[i]->setInvisible(onOff);
-      }
-    }
-    else
-    {
-      for (int i = 0; i < dockWidgets.size(); i ++)
-      {
-	dockWidgets[i]->setInvisible(onOff);
-      }
+      dockWidgets[i]->setInvisible(onOff);
     }
       
   }

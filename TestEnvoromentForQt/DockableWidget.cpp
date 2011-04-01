@@ -58,30 +58,27 @@ void DockableWidget::paintEvent(QPaintEvent *event)
   QPainter painter(this);
     
   QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QToolBar::width(),QToolBar::height()));
-  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-10, y-10, 20, 20));
+  QPolygon mousePolygon = QPolygon::QPolygon(QRect(x, y, 1, 1));
   
   myPolygon = myPolygon.subtracted(mousePolygon);
-  //cout << x << " " << y << " " << isInvisible << " " << true << " " << underMouse() <<  endl;
+
   *noArea = QRegion(myPolygon,Qt::OddEvenFill );
   *fullArea = QRegion(QRect(0,0,QToolBar::width(), QToolBar::height()));
   
   if(isInvisible == true && underMouse() == true)
   {
-    //cout << "\nIS UNDER MOUSE\n";
         setMask(*noArea);
   }
 
-}
-
-void DockableWidget::emitUndock()
-{
-  emit topLevelChanged(true);
 }
 
 void DockableWidget::recieveMouseXY(int x, int y)
 {
   this->x = x;
   this->y = y;
+  update();
+  adjustSize();
+  updateGeometry();
 }
 
 void DockableWidget::DropEvent(QDropEvent* event)
