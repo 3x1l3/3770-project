@@ -39,6 +39,7 @@ WidgetManager::WidgetManager(QMainWindow *parent)
       dockWidgets[i]->move(right, 400);
       this->parent->addToolBar(Qt::TopToolBarArea, dockWidgets[i]);
       right += 65;
+      dockWidgets[i]->hide();
     }
   }
 
