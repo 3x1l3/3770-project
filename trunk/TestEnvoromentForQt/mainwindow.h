@@ -13,7 +13,8 @@
 #include "WidgetManager.h"
 
 #include "BannerWidget.h"
-
+#include "dockwidget.h"
+#include "photos.h"
 
 
 class QLabel;
