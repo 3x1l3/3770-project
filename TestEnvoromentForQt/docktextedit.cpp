@@ -3,7 +3,9 @@
 
 DockTextEdit::DockTextEdit(QWidget* parent): QTextEdit(parent)
 {
+ 
   isInvisible = false;
+   isInvisible = true;
   setMouseTracking(true);
   fullArea = new QRegion(0, 0, width(), height(), QRegion::Rectangle);
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
@@ -54,7 +56,7 @@ void DockTextEdit::paintEvent(QPaintEvent* event)
     *noArea = QRegion(myPolygon,Qt::OddEvenFill );
     *fullArea = QRegion(QRect(0,0,width(),height()));
     
-    if(isInvisible == true && underMouse() == true)
+    if(isInvisible && underMouse())
     {
   //     cout << "\nIS UNDER MOUSE\n";
 	  setMask(*noArea);
