@@ -134,18 +134,20 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     
     
     DockWidget* DW = new DockWidget();
-    
+    /*
     QHBoxLayout* lay = new QHBoxLayout(DW);
     lay->addWidget(dockText);
     
     DW->setLayout(lay);
-    DW->setMouseTracking(true);
-    dockText->setMouseTracking(true);
-    dockText->setInvisible(true);
-    DW->setInvisible(true);
+    DW->setMouseTracking(true); */
+    //dockText->setMouseTracking(true);
+    //dockText->setInvisible(true);
+   // DW->setInvisible(true);
     
     manager->addNewWidget("fuck", 0, 0, 0.5, DW);
+ 
     
+    manager->addNewWidget("damn", 0, 0, 0.5, dockText);
     manager->drawWidgets();
     cout<<"AFTER"<<endl;
     
@@ -171,6 +173,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     manager->toggleTransparency(true);
     manager->toggleTransparency(false);
     */
+    QMainWindow::hide();
 
 }
 
