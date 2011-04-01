@@ -130,16 +130,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     thing->setMinimumSize(300, 300);
     manager->addNewWidget("test", 0, 0, 0.5, thing);
     
-    QTextEdit* text = new QTextBrowser();
+    DockTextEdit* dockText = new DockTextEdit();
+    
     
     DockWidget* DW = new DockWidget();
     
     QHBoxLayout* lay = new QHBoxLayout(DW);
-    lay->addWidget(text);
+    lay->addWidget(dockText);
     
     DW->setLayout(lay);
+    DW->setMouseTracking(true);
+    dockText->setMouseTracking(true);
+    dockText->setInvisible(true);
+    DW->setInvisible(true);
     
-    manager->addNewWidget("fuck", 0, 0, 0.5, text);
+    manager->addNewWidget("fuck", 0, 0, 0.5, DW);
     
     manager->drawWidgets();
     cout<<"AFTER"<<endl;

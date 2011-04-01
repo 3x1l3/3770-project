@@ -15,6 +15,7 @@
 #include "BannerWidget.h"
 #include "dockwidget.h"
 #include "photos.h"
+#include "docktextedit.h"
 
 
 class QLabel;

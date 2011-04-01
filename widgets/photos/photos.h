@@ -15,7 +15,7 @@
 #include <QAction>
 #include <QMessageBox>
 
-class photos : public QWidget
+class photos : public DockWidget
 {
     Q_OBJECT
 
