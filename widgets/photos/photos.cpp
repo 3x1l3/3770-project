@@ -30,6 +30,8 @@ photos::photos(QWidget *parent)
     connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), this, SLOT(showContextMenu(const QPoint&)));
     connect(imageDialog, SIGNAL(fileSelected(QString)), this, SLOT(loadImages(QString)));
 
+    isInvisible = true;
+    this->setMouseTracking(true);
 }
 
 void photos::loadImages(QString dir) {
@@ -92,3 +94,30 @@ photos::~photos()
 {
 
 }
+
+void photos::paintEvent(QPaintEvent* e)
+{
+  QWidget::paintEvent(e);
+//   if(e->accept())
+//   {
+//     if(isInvisible)
+//     {
+//       QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,this->width(), this->height()));
+//       QPolygon mousePolygon = QPolygon::QPolygon(QRect(x-15, y-15, 30, 30));
+//       myPolygon = myPolygon.subtracted(mousePolygon);
+//       *noArea = QRegion(myPolygon,Qt::OddEvenFill );
+//       *fullArea = QRegion(QRect(0, 0, this->width(), this->height()));
+//       
+//      // setMask(*noArea);
+//     }
+//   } 
+}
+
+void photos::mouseMoveEvent(QMouseEvent* e)
+{
+    QWidget::mouseMoveEvent(e);
+    
+    x = e->x();
+    y = e->y();
+}
+

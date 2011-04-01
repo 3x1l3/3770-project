@@ -29,10 +29,17 @@ public:
 
   MainWindow(QWidget *parent=0);
   
+public slots:
+  
+  void myhide();
+  void myshow();
+  
 private slots:
 
   void showPassword();
   void setTransparency();
+  
+
   
 signals:
   void setTransparencyOnWidgets();

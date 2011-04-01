@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Thu Mar 31 19:12:42 2011
+** Created: Thu Mar 31 20:33:18 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       6,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,16 +35,18 @@ static const uint qt_meta_data_MainWindow[] = {
       43,   39,   11,   11, 0x05,
 
  // slots: signature, parameters, type, tag, flags
-      67,   11,   11,   11, 0x08,
-      82,   11,   11,   11, 0x08,
+      67,   11,   11,   11, 0x0a,
+      76,   11,   11,   11, 0x0a,
+      85,   11,   11,   11, 0x08,
+     100,   11,   11,   11, 0x08,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0setTransparencyOnWidgets()\0"
-    "x,y\0sendOutMouseXY(int,int)\0showPassword()\0"
-    "setTransparency()\0"
+    "x,y\0sendOutMouseXY(int,int)\0myhide()\0"
+    "myshow()\0showPassword()\0setTransparency()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -78,11 +80,13 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         switch (_id) {
         case 0: setTransparencyOnWidgets(); break;
         case 1: sendOutMouseXY((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2]))); break;
-        case 2: showPassword(); break;
-        case 3: setTransparency(); break;
+        case 2: myhide(); break;
+        case 3: myshow(); break;
+        case 4: showPassword(); break;
+        case 5: setTransparency(); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 6;
     }
     return _id;
 }

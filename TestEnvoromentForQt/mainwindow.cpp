@@ -68,9 +68,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction *exit = new QAction("Exit", this);
     exit->connect(exit, SIGNAL(triggered()), this, SLOT(close()));
     QAction *hide = new QAction("Hide", this);
-    hide->connect(hide, SIGNAL(triggered()), this, SLOT(hide()));
+    hide->connect(hide, SIGNAL(triggered()), this, SLOT(myhide()));
     QAction *show = new QAction("Show", this);
-    show->connect(show, SIGNAL(triggered()), this, SLOT(show() ) );
+    show->connect(show, SIGNAL(triggered()), this, SLOT(myshow()) );
    
     //Action to toggle whether or not the application is 'active', i.e. accepts mouse events
     QAction *toggleActive = new QAction("Toggle Active", this);
@@ -153,6 +153,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 }
 
+void MainWindow::myhide()
+{
+
+  for(int i = 0; i < manager->dockWidgets.size(); i++)
+  {
+    manager->dockWidgets.at(i)->hide();
+  }
+  QMainWindow::hide();
+}
+
+void MainWindow::myshow()
+{
+  QMainWindow::show();
+  for(int i = 0; i < manager->dockWidgets.size(); i++)
+  {
+    manager->dockWidgets.at(i)->show();
+  }
+}
+
+
+
+
 void MainWindow::showPassword() {
   QMessageBox::information(this, "Password", QString("Your password is: %1").arg(password->text()));
 }
@@ -165,7 +187,6 @@ void MainWindow::setTransparency()
     //this->showFullScreen();
     password->setInvisible(true);
     manager->toggleTransparency(true);
-    this->hide();
   }
   else
   {
