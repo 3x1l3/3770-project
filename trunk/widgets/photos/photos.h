@@ -41,12 +41,21 @@ public:
     QMessageBox *nofiles;
 
     QAction *changedirAct;
-
+    
+    QRegion *fullArea;
+    QRegion *noArea;
+    
+protected:
+    void paintEvent(QPaintEvent*);
+    void mouseMoveEvent(QMouseEvent*);
 
 
 private:
     void timerEvent(QTimerEvent * event);
 
+    bool isInvisible;
+    int x;
+    int y;
 
 };
 
