@@ -1,7 +1,7 @@
 #include "photos.h"
 
 photos::photos(QWidget *parent)
-    : QWidget(parent)
+    : DockWidget(parent)
 {
     this->currentfile = 0;
     filter << "*.png" << "*.jpg" << "*.gif" << "*.bmp";
@@ -32,6 +32,7 @@ photos::photos(QWidget *parent)
 
     isInvisible = true;
     this->setMouseTracking(true);
+    label->setMouseTracking(true);
 }
 
 void photos::loadImages(QString dir) {
