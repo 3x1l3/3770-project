@@ -30,9 +30,13 @@ class TransparentToolbar : public QToolBar {
     
     void DropEvent(QDropEvent*);
     
+    void SetHeight(int);
+    void SetWidth(int);
+    int GetHeight();
+    int GetWidth();
+    
   public slots:
     void recieveMouseXY(int x, int y);
-    
     
   private:
     
@@ -41,6 +45,8 @@ class TransparentToolbar : public QToolBar {
     bool isInvisible;
     int x;
     int y;
+    int width;
+    int height;
     
   
 };

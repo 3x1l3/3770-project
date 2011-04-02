@@ -10,6 +10,8 @@ TransparentToolbar::TransparentToolbar( QWidget * parent) : QToolBar( parent )
   setMouseTracking(true);
   fullArea = new QRegion(0, 0, QWidget::width(), QWidget::height(),QRegion::Rectangle);
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
+  width = 100;
+  height = 100;
 }
 
 TransparentToolbar::TransparentToolbar( QString label) : QToolBar( label )
@@ -84,5 +86,29 @@ void TransparentToolbar::recieveMouseXY(int x, int y)
 void TransparentToolbar::DropEvent(QDropEvent* event)
 {
   QWidget::dropEvent(event);
-  std::cout<<"asdasd"<<std::endl;
+  setWindowFlags(Qt::X11BypassWindowManagerHint);
 }
+
+int TransparentToolbar::GetHeight()
+{
+  return height;
+}
+
+int TransparentToolbar::GetWidth()
+{
+  return width;
+}
+
+void TransparentToolbar::SetHeight(int h)
+{
+  height = h;
+}
+
+void TransparentToolbar::SetWidth(int w)
+{
+  width = w;
+}
+
+
+
+

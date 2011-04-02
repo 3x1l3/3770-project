@@ -12,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   x = 0;
   y = 0;
   this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+  this->setAttribute(Qt::WA_TranslucentBackground);
   startTimer(100); 
   this->setWindowOpacity(1);
   this->setMouseTracking(true);
@@ -55,12 +56,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     banner1->setMouseTracking(true);
     thing->setMinimumSize(300, 300);
 
+   
+    
     //Add to manager
     manager->addNewToolbar("test", 0, 0, 0.5, thing);
     manager->addNewToolbar("scrollin'", 0, 0, 0.5, banner1);
-    manager->addNewToolbar("damn", 0, 0, 0.5, dockText);
+    manager->addNewToolbar("Notepad", 0, 0, 0.5, dockText);
     manager->drawToolbars();
+
     
+    
+    //Initial widget positioning
+    manager->toolbarWidgets.at(0)->move( QApplication::desktop()->screenGeometry().right() - thing->width() , 39);
+    manager->toolbarWidgets.at(1)->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
+    	banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
+        manager->toolbarWidgets.at(1)->window()->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
+	manager->toolbarWidgets.at(2)->move(0, 39);
+    
+	
     
     for (int i = 0; i < manager->toolbarWidgets.size();i ++)
     {
@@ -70,7 +83,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       manager->toolbarWidgets.at(i)->show();
     }
 
-
+    manager->toggleTransparency(true);
+    underClick = true; 
     QMainWindow::hide();
 }
 

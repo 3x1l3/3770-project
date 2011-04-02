@@ -9,7 +9,6 @@
 
 #include<QPushButton>
 
-#include "ToolbarManager.h"
 #include "TransparentToolbar.h"
 
 class ToolbarManager {
