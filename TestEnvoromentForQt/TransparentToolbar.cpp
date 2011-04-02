@@ -84,4 +84,5 @@ void TransparentToolbar::recieveMouseXY(int x, int y)
 void TransparentToolbar::DropEvent(QDropEvent* event)
 {
   QWidget::dropEvent(event);
+  std::cout<<"asdasd"<<std::endl;
 }

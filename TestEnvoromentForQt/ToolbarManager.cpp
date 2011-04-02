@@ -10,6 +10,9 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
   
   void ToolbarManager::addNewToolbar(QString label, int features, int allowedDockableArea, float windowOpacity, QWidget* mainWidget)
   {
+    //if we send in a parent to each tool bar here, we loos the individual opacity levels of each tool bar
+    //becasue the opacity is derrived from the parent class window, which we dont even show anymore.
+    //TransparentToolbar *toolbar = new TransparentToolbar(parent);
     TransparentToolbar *toolbar = new TransparentToolbar();
     toolbar->setWindowTitle(label);
     
