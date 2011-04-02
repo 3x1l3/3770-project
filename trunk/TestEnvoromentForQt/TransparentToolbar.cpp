@@ -1,9 +1,9 @@
-#include "DockableWidget.h"
+#include "TransparentToolbar.h"
 #include <QtGui>
 #include <iostream>
 using namespace std;
 
-DockableWidget::DockableWidget( QWidget * parent) : QToolBar( parent )
+TransparentToolbar::TransparentToolbar( QWidget * parent) : QToolBar( parent )
 {
   isInvisible = false;
   
@@ -12,7 +12,7 @@ DockableWidget::DockableWidget( QWidget * parent) : QToolBar( parent )
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
 }
 
-DockableWidget::DockableWidget( QString label) : QToolBar( label )
+TransparentToolbar::TransparentToolbar( QString label) : QToolBar( label )
 {
   isInvisible = false;
   
@@ -21,7 +21,7 @@ DockableWidget::DockableWidget( QString label) : QToolBar( label )
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
 }
 
-DockableWidget::~DockableWidget()
+TransparentToolbar::~TransparentToolbar()
 {
 
 }
@@ -30,19 +30,19 @@ DockableWidget::~DockableWidget()
 
 
 
-void DockableWidget::setInvisible(bool setter)
+void TransparentToolbar::setInvisible(bool setter)
 {
   isInvisible = setter;
 }
 
-void DockableWidget::leaveEvent(QEvent* event)
+void TransparentToolbar::leaveEvent(QEvent* event)
 {
   //QDockWidget::leaveEvent(event);
   //setMask(*fullArea);
   
 }
 
-void DockableWidget::mouseMoveEvent(QMouseEvent * event)
+void TransparentToolbar::mouseMoveEvent(QMouseEvent * event)
 {
  QToolBar::mouseMoveEvent(event); 
  
@@ -52,7 +52,7 @@ void DockableWidget::mouseMoveEvent(QMouseEvent * event)
   
 }
 
-void DockableWidget::paintEvent(QPaintEvent *event)
+void TransparentToolbar::paintEvent(QPaintEvent *event)
 {
   QToolBar::paintEvent(event);
   QPainter painter(this);
@@ -72,7 +72,7 @@ void DockableWidget::paintEvent(QPaintEvent *event)
 
 }
 
-void DockableWidget::recieveMouseXY(int x, int y)
+void TransparentToolbar::recieveMouseXY(int x, int y)
 {
   this->x = x;
   this->y = y;
@@ -81,7 +81,7 @@ void DockableWidget::recieveMouseXY(int x, int y)
   updateGeometry();
 }
 
-void DockableWidget::DropEvent(QDropEvent* event)
+void TransparentToolbar::DropEvent(QDropEvent* event)
 {
   QWidget::dropEvent(event);
 }

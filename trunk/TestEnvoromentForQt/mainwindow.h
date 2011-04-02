@@ -10,7 +10,7 @@
 #include <X11/Xresource.h>
 
 
-#include "WidgetManager.h"
+#include "ToolbarManager.h"
 
 #include "BannerWidget.h"
 #include "dockwidget.h"
@@ -75,7 +75,7 @@ protected:
   bool underClick;
   bool fired;
   
-  WidgetManager *manager;
+  ToolbarManager *manager;
 
 };
 
