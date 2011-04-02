@@ -14,9 +14,9 @@
 #include <QMenu>
 #include <QAction>
 #include <QMessageBox>
-#include "dockwidget.h"
 
-class photos : public DockWidget
+
+class photos : public QWidget
 {
     Q_OBJECT
 

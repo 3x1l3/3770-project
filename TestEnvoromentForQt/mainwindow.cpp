@@ -86,7 +86,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     context_menu->addAction(exit);
     
     cout<<"BEFORE"<<endl;
-    manager = new WidgetManager(this);
+    manager = new ToolbarManager(this);
     cout<<"BEFORE1"<<endl;
     QPushButton *button1 = new QPushButton();
     cout<<"BEFORE2"<<endl;
@@ -113,22 +113,22 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     cout<<"BEFORE9"<<endl;
     textEdit1->setMouseTracking(true);
     cout<<"BEFORE10"<<endl;
-    manager->addNewWidget("button1", 0, 0, 0.8, button1);
+    manager->addNewToolbar("button1", 0, 0, 0.8, button1);
     cout<<"BEFORE11"<<endl;
-    manager->addNewWidget("button2", 0, 0, 0.7, button2);
+    manager->addNewToolbar("button2", 0, 0, 0.7, button2);
     cout<<"BEFORE12"<<endl;
-    manager->addNewWidget("button3", 0, 0, 0.4, button3);
+    manager->addNewToolbar("button3", 0, 0, 0.4, button3);
     cout<<"BEFORE13"<<endl;
-    manager->addNewWidget("", 0, 0, 0.2, button4);
+    manager->addNewToolbar("", 0, 0, 0.2, button4);
     cout<<"BEFORE14"<<endl;
-    manager->addNewWidget("scrollin'", 0, 0, 0.5, banner1);
+    manager->addNewToolbar("scrollin'", 0, 0, 0.5, banner1);
     cout<<"BEFORE15"<<endl;
-    manager->addNewWidget("textEdit1", 0,0,0.5, textEdit1);
+    manager->addNewToolbar("textEdit1", 0,0,0.5, textEdit1);
     cout<<"BEFORE16"<<endl;
     
     photos* thing = new photos();
     thing->setMinimumSize(300, 300);
-    manager->addNewWidget("test", 0, 0, 0.5, thing);
+    manager->addNewToolbar("test", 0, 0, 0.5, thing);
     
     DockTextEdit* dockText = new DockTextEdit();
     
@@ -144,21 +144,21 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //dockText->setInvisible(true);
    // DW->setInvisible(true);
     
-    manager->addNewWidget("fuck", 0, 0, 0.5, DW);
+    //manager->addNewWidget("fuck", 0, 0, 0.5, DW);
  
     
-    manager->addNewWidget("damn", 0, 0, 0.5, dockText);
-    manager->drawWidgets();
+    manager->addNewToolbar("damn", 0, 0, 0.5, dockText);
+    manager->drawToolbars();
     cout<<"AFTER"<<endl;
     
     
-    for (int i = 0; i < manager->dockWidgets.size();i ++)
+    for (int i = 0; i < manager->toolbarWidgets.size();i ++)
     {
-      connect(this, SIGNAL(sendOutMouseXY(int, int)), manager->dockWidgets[i], SLOT(recieveMouseXY(int, int)));
-      manager->dockWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |Qt::X11BypassWindowManagerHint);
-      manager->dockWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
+      connect(this, SIGNAL(sendOutMouseXY(int, int)), manager->toolbarWidgets[i], SLOT(recieveMouseXY(int, int)));
+      manager->toolbarWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |Qt::X11BypassWindowManagerHint);
+      manager->toolbarWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
       
-      manager->dockWidgets.at(i)->show();
+      manager->toolbarWidgets.at(i)->show();
       //might be useful in the future for RANDOM POSITIONING of Widgets
    //   manager->dockWidgets.at(i)->setFocus();
    //   manager->dockWidgets.at(i)->move(manager->dockWidgets.at(i)->pos().x()+1,manager->dockWidgets.at(i)->pos().y()+1);
@@ -180,9 +180,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 void MainWindow::myhide()
 {
 
-  for(int i = 0; i < manager->dockWidgets.size(); i++)
+  for(int i = 0; i < manager->toolbarWidgets.size(); i++)
   {
-    manager->dockWidgets.at(i)->hide();
+    manager->toolbarWidgets.at(i)->hide();
   }
   QMainWindow::hide();
 }
@@ -190,9 +190,9 @@ void MainWindow::myhide()
 void MainWindow::myshow()
 {
   QMainWindow::show();
-  for(int i = 0; i < manager->dockWidgets.size(); i++)
+  for(int i = 0; i < manager->toolbarWidgets.size(); i++)
   {
-    manager->dockWidgets.at(i)->show();
+    manager->toolbarWidgets.at(i)->show();
   }
 }
 

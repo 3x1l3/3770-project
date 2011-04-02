@@ -1,22 +1,22 @@
 
-#ifndef DOCKABLEWIDGET
-#define DOCKABLEWIDGET
+#ifndef TRANSPARENTTOOLBAR_H
+#define TRANSPARENTTOOLBAR_H
 
 #include <QLineEdit>
 #include <QDockWidget>
 #include <QToolBar>
 
-class DockableWidget : public QToolBar {
+class TransparentToolbar : public QToolBar {
   
   Q_OBJECT
   
   public:
     
 
-    DockableWidget( QWidget * parent = 0 );
-    DockableWidget(QString label);
+    TransparentToolbar( QWidget * parent = 0 );
+    TransparentToolbar(QString label);
     
-    ~DockableWidget();
+    ~TransparentToolbar();
     
    
     void leaveEvent(QEvent * event);

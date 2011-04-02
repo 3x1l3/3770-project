@@ -1,7 +1,6 @@
 #include "photos.h"
 
-photos::photos(QWidget *parent)
-    : DockWidget(parent)
+photos::photos(QWidget *parent) : QWidget(parent)
 {
     this->currentfile = 0;
     filter << "*.png" << "*.jpg" << "*.gif" << "*.bmp";
