@@ -30,7 +30,7 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
     
     toolbar->addWidget(mainWidget);
     
-    toolbar->setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    toolbar->setWindowFlags(Qt::Window | Qt::FramelessWindowHint | Qt::X11BypassWindowManagerHint);
     
     toolbarWidgets.push_back(toolbar);
   }
