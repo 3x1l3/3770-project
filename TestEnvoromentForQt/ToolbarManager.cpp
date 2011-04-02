@@ -39,7 +39,7 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
     int right = 0;
     for (int i = 0; i < toolbarWidgets.size(); i ++)
     {
-      toolbarWidgets[i]->move(right, 400);
+     // toolbarWidgets[i]->move(right, 400);
       this->parent->addToolBar(Qt::TopToolBarArea, toolbarWidgets[i]);
       right += 65;
       toolbarWidgets[i]->hide();
