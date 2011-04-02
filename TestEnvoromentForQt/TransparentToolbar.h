@@ -22,7 +22,7 @@ class TransparentToolbar : public QToolBar {
     void leaveEvent(QEvent * event);
     void paintEvent (QPaintEvent * event);
     void mouseMoveEvent (QMouseEvent * event);
-    
+
     void setInvisible(bool setter);
     
     QRegion *noArea;

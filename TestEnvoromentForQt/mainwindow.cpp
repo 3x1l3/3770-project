@@ -8,11 +8,17 @@
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
-  underClick = false; 
+
   x = 0;
   y = 0;
-  this->setWindowFlags(Qt::WindowStaysOnTopHint);
+  this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
   startTimer(100); 
+  this->setWindowOpacity(1);
+  this->setMouseTracking(true);
+  this->fullArea = new QRegion(0, 0, QMainWindow::width(), QMainWindow::height(), QRegion::Rectangle);
+  this->noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
+  this->underClick = true;
+  this->setFixedSize(1,1);
 
     /// Creating system tray icon and menu functionality ///
     QSystemTrayIcon *tray = new QSystemTrayIcon(QIcon(QPixmap("shutter.png")),this);
@@ -64,8 +70,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       manager->toolbarWidgets.at(i)->show();
     }
 
-    this->hide();
 
+    QMainWindow::hide();
 }
 
 void MainWindow::myhide()
@@ -80,7 +86,7 @@ void MainWindow::myhide()
 
 void MainWindow::myshow()
 {
-
+    QMainWindow::show();
   for(int i = 0; i < manager->toolbarWidgets.size(); i++)
   {
     manager->toolbarWidgets.at(i)->show();
@@ -108,6 +114,7 @@ void MainWindow::setTransparency()
 
 void MainWindow::timerEvent(QTimerEvent * event)
 {
+    QMainWindow::timerEvent(event);
   //emit the signla here with the global x and y mouse coordinates
   Display *d;
   Window inwin;      /* root window the pointer is in */
@@ -146,5 +153,46 @@ void MainWindow::timerEvent(QTimerEvent * event)
   this->x = rootx;
   this->y = rooty;
   emit this->sendOutMouseXY(rootx,rooty);
-  
+
 }
+
+void MainWindow::paintEvent(QPaintEvent *event)
+{
+  QWidget::paintEvent(event);
+  QPainter painter(this);
+  pos = QCursor::pos();
+  painter.setOpacity(1.0);
+
+  QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,QMainWindow::width(), QMainWindow::height()));
+  QPolygon mousePolygon = QPolygon::QPolygon(QRect(0, 1, QMainWindow::width(), QMainWindow::height()));
+
+
+
+  myPolygon = myPolygon.subtracted(mousePolygon);
+
+  *noArea = QRegion(myPolygon,Qt::OddEvenFill );
+  *fullArea = QRegion(QRect(0, 0, QMainWindow::width(), QMainWindow::height()));
+
+  if(underClick == true)
+  {
+        setMask(*noArea);
+        this->setWindowOpacity(0.5);
+
+  }
+  else
+  {
+        setMask(*fullArea);
+        this->setWindowOpacity(1.0);
+  }
+
+
+}
+
+void MainWindow::mouseMoveEvent( QMouseEvent * event)
+{
+  QWidget::mouseMoveEvent(event);
+  update();
+  repaint();
+
+}
+

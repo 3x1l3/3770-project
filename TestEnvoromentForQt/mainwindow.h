@@ -44,6 +44,14 @@ protected:
   void timerEvent(QTimerEvent *event);
   int x, y;
   bool underClick;
+
+private:
+  QRegion* fullArea;
+  QRegion* noArea;
+
+  void paintEvent(QPaintEvent *);
+  void mouseMoveEvent(QMouseEvent *);
+  QPoint pos;
   
   ToolbarManager *manager;
 
