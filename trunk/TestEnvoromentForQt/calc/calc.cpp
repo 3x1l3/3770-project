@@ -10,6 +10,7 @@ Calc::Calc(QWidget *parent)
     layout->addWidget(outputbox, 0, 0, 1, 4);
     this->buildButtons();
     bc = new QProcess(this);
+    setMouseTracking(true);
 
     connect(this, SIGNAL(result(QString)), outputbox, SLOT(setText(QString)));
 }

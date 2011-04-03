@@ -2,6 +2,7 @@
 
 CalcButton::CalcButton() {
     connect(this, SIGNAL(clicked()), this, SLOT(isPressed()));
+    setMouseTracking(true);
 }
 
 void CalcButton::isPressed() {

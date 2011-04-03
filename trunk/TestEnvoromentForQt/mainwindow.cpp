@@ -58,10 +58,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     banner1->setMouseTracking(true);
 
     //Add to manager
-    manager->addNewToolbar("test", 0, 0, 0.2, thing);
-    manager->addNewToolbar("scrollin'", 0, 0, 0.2, banner1);
-    manager->addNewToolbar("Notepad", 0, 0, 0.2, dockText);
-    manager->addNewToolbar("Calculator", 0, 0, 0.2, calc);
+    manager->addNewToolbar("test", 0, 0, 0.7, thing);
+    manager->addNewToolbar("scrollin'", 0, 0, 0.7, banner1);
+    manager->addNewToolbar("Notepad", 0, 0, 0.7, dockText);
+    manager->addNewToolbar("Calculator", 0, 0, 0.7, calc);
     manager->drawToolbars();
 
     
