@@ -15,7 +15,6 @@ class TransparentToolbar : public QToolBar {
 
     TransparentToolbar( QWidget * parent = 0 );
     TransparentToolbar(QString label);
-    
     ~TransparentToolbar();
     
    
