@@ -7,6 +7,9 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
 {
   this->parent = parent;
   toolbars.clear();
+  
+  initXPos = 0;
+  initYPos = 80;
 }
   
   void ToolbarManager::addNewToolbar(QString label, int features, int allowedDockableArea, float windowOpacity, QWidget* mainWidget)
@@ -47,6 +50,15 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
       
       right += 65;
       toolbarWidgets[i]->hide();
+      toolbarWidgets[i]->move(initXPos, initYPos);
+      if(initYPos >= 700)
+      {
+	initYPos = 40;
+	initXPos = 500;
+      }
+      else
+	initYPos += 100;
+      
     }
     toolbars = this->parent->findChildren<QToolBar *>("");
 
