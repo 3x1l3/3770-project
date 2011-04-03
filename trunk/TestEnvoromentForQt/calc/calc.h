@@ -12,13 +12,14 @@
 
 #include "calcbutton.h"
 #include "calclineedit.h"
+#include "../dockwidget.h"
 
-class Calc : public QWidget
+class Calc : public DockWidget
 {
     Q_OBJECT
 
 public:
-    Calc(QWidget *parent = 0);
+    Calc(DockWidget *parent = 0);
     ~Calc();
 
 private:
