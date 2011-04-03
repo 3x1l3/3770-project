@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Sat Apr 2 16:31:33 2011
+** Created: Sun Apr 3 12:43:10 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        5,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       5,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -37,6 +37,7 @@ static const uint qt_meta_data_MainWindow[] = {
       40,   11,   11,   11, 0x0a,
       49,   11,   11,   11, 0x0a,
       58,   11,   11,   11, 0x08,
+      76,   11,   11,   11, 0x08,
 
        0        // eod
 };
@@ -44,6 +45,7 @@ static const uint qt_meta_data_MainWindow[] = {
 static const char qt_meta_stringdata_MainWindow[] = {
     "MainWindow\0\0x,y\0sendOutMouseXY(int,int)\0"
     "myhide()\0myshow()\0setTransparency()\0"
+    "sendNotification()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -79,9 +81,10 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 1: myhide(); break;
         case 2: myshow(); break;
         case 3: setTransparency(); break;
+        case 4: sendNotification(); break;
         default: ;
         }
-        _id -= 4;
+        _id -= 5;
     }
     return _id;
 }

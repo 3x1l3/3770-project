@@ -8,7 +8,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <X11/Xresource.h>
-
+#include <QTimer>
 
 #include "ToolbarManager.h"
 
@@ -36,6 +36,7 @@ public slots:
   
 private slots:
   void setTransparency();
+  void sendNotification();
 
 signals:
   void sendOutMouseXY(int x, int y);
@@ -52,6 +53,8 @@ private:
   void paintEvent(QPaintEvent *);
   void mouseMoveEvent(QMouseEvent *);
   QPoint pos;
+  
+  QTimer *timer;
   
   ToolbarManager *manager;
 
