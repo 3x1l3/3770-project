@@ -2,16 +2,13 @@
 #include "passwordedit.h"
 #include <QDragLeaveEvent>
 
-#include <QtGui>
-#include <iostream>
-
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
   timer = new QTimer();
-  timer->setInterval(30000);
-  timer->start();
+ // timer->setInterval(30000);
+ // timer->start();
   connect(timer, SIGNAL(timeout()), this, SLOT(sendNotification()));
   x = 0;
   y = 0;
@@ -55,17 +52,16 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     photos* thing = new photos();
     DockTextEdit* dockText = new DockTextEdit();
     BannerWidget *banner1 = new BannerWidget();
+    Calc *calc = new Calc();
 
     //set Properties
     banner1->setMouseTracking(true);
-    thing->setMinimumSize(300, 300);
 
-   
-    
     //Add to manager
     manager->addNewToolbar("test", 0, 0, 0.2, thing);
     manager->addNewToolbar("scrollin'", 0, 0, 0.2, banner1);
     manager->addNewToolbar("Notepad", 0, 0, 0.2, dockText);
+    manager->addNewToolbar("Calculator", 0, 0, 0.2, calc);
     manager->drawToolbars();
 
     
@@ -85,7 +81,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       manager->toolbarWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |Qt::X11BypassWindowManagerHint);
       manager->toolbarWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
       manager->toolbarWidgets.at(i)->show();
-      manager->toolbarWidgets.at(1)->setMinimumHeight(300);
     }
  
 
@@ -219,6 +214,16 @@ void MainWindow::mouseMoveEvent( QMouseEvent * event)
 
 void MainWindow::sendNotification()
 {
-  system("notify-send Alert \"You have a new email and/or message and/or phone call! *gasp*\" ");
+  //TODO relative path calculations here?
+  
+  /*char abspath[PATH_MAX];
+  realpath("/shutter.png", abspath);
+  QString str = QString("notify-send -i ");
+  str = str + abspath;
+  str = str + " Alert! \"You have a new message.\" ";
+  
+  system(str.toStdString().c_str());
+  */
+  system( "notify-send -i ~/Documents/HCI/Project/3770-project/TestEnvoromentForQt/shutter.png Alert \"You have a new email and/or message and or incoming call!\" ");
 }
 

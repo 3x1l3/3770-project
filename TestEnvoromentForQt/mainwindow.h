@@ -9,6 +9,8 @@
 #include <X11/Xutil.h>
 #include <X11/Xresource.h>
 #include <QTimer>
+#include <stdlib.h>
+#include <calc/calc.h>
 
 #include "ToolbarManager.h"
 

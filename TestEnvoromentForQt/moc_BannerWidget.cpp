@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'BannerWidget.h'
 **
-** Created: Sat Apr 2 15:47:44 2011
+** Created: Sun Apr 3 14:46:06 2011
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.7.0)
 **
 ** WARNING! All changes made in this file will be lost!
