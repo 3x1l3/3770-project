@@ -57,8 +57,15 @@ void BannerWidget::openEditWindow()
 {
   
   bool ok;
-  QString result = QInputDialog::getText(0, "Settings", 
-     "Enter banner text:", QLineEdit::Normal, bannerString, &ok);
+//   QString result = QInputDialog::getText(0, "Settings", 
+//      "Enter banner text:", QLineEdit::Normal, bannerString, &ok);
+  QInputDialog *input = new QInputDialog();
+  input->raise();
+  QString result = input->getText(0, "Settings", "Enter banner text:", QLineEdit::Normal, bannerString, &ok);input->raise();
+  input->raise();
+  
+  
+  
   
   if (ok)
   {
