@@ -11,6 +11,7 @@
 #include <QTimer>
 #include <stdlib.h>
 #include <calc/calc.h>
+#include <QSlider>
 
 #include "ToolbarManager.h"
 
@@ -39,6 +40,7 @@ public slots:
 private slots:
   void setTransparency();
   void sendNotification();
+  void clickActivation(QSystemTrayIcon::ActivationReason);
 
 signals:
   void sendOutMouseXY(int x, int y);
@@ -62,6 +64,13 @@ private:
   QIcon activeIcon;
   QIcon inactiveIcon;
   QSystemTrayIcon *tray;
+
+  float activeOpacity;
+  float inactiveOpacity;
+  QSlider *activeSlider;
+  QSlider *inactiveSlider;
+  QMenu* leftcontext_menu;
+
 };
 
 #endif

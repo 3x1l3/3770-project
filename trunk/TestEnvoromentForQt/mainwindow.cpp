@@ -2,6 +2,7 @@
 #include "passwordedit.h"
 #include <QDragLeaveEvent>
 
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
@@ -10,8 +11,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
  // timer->setInterval(30000);
  // timer->start();
   connect(timer, SIGNAL(timeout()), this, SLOT(sendNotification()));
-  x = 0;
-  y = 0;
+  this->x = 0;
+  this->y = 0;
   this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
   this->setAttribute(Qt::WA_TranslucentBackground);
   startTimer(100); 
@@ -21,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   this->noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   this->underClick = true;
   this->setFixedSize(1,1);
+  this->activeOpacity = 0.6;
+  this->inactiveOpacity = 0.3;
 
     /// Creating system tray icon and menu functionality ///
     activeIcon = QIcon(QPixmap("shutter.png"));
@@ -37,6 +40,13 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction *toggleActive = new QAction("Toggle Active", this);
     toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
     
+    leftcontext_menu = new QMenu(this);
+    activeSlider = new QSlider(this);
+    inactiveSlider = new QSlider(this);
+
+
+
+    connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(clickActivation(QSystemTrayIcon::ActivationReason)));
 
     context_menu->addAction(show);
     context_menu->addAction(hide);
@@ -241,3 +251,12 @@ void MainWindow::sendNotification()
   system( "notify-send -i ~/Documents/HCI/Project/3770-project/TestEnvoromentForQt/shutter.png Alert \"You have a new email and/or message and or incoming call!\" ");
 }
 
+void MainWindow::clickActivation(QSystemTrayIcon::ActivationReason event) {
+    if (event == QSystemTrayIcon::Trigger) {
+
+
+
+
+
+    }
+}
