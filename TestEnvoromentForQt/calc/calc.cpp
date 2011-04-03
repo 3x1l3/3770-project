@@ -1,7 +1,7 @@
 #include "calc.h"
 
-Calc::Calc(QWidget *parent)
-    : QWidget(parent)
+Calc::Calc(DockWidget *parent)
+    : DockWidget(parent)
 {
     layout = new QGridLayout(this);
     outputbox = new CalcLineEdit();
