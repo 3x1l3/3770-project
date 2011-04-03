@@ -46,7 +46,7 @@ void DockTextEdit::paintEvent(QPaintEvent* event)
 {
     QTextEdit::paintEvent(event);
     
-   // QPainter painter(this);
+    //QPainter painter(this);
     
     QPolygon myPolygon = QPolygon::QPolygon(QRect(0,0,width(), height()));
     QPolygon mousePolygon = QPolygon::QPolygon(QRect(x, y, 3, 3));
@@ -60,8 +60,7 @@ void DockTextEdit::paintEvent(QPaintEvent* event)
     {
   //     cout << "\nIS UNDER MOUSE\n";
 	  setMask(*noArea);
-    }
-    
+    }   
 }
 
 void DockTextEdit::setInvisible(bool setter)
