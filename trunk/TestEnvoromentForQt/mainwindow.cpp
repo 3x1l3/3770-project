@@ -65,8 +65,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     manager->addNewToolbar("Notepad", 0, 0, 0.3, dockText);
     manager->addNewToolbar("Calculator", 0, 0, 0.3, calc);
     manager->drawToolbars();
-
     
+    banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() * 0.9 );
+
+    /*
     //Initial widget positioning
     manager->toolbarWidgets.at(0)->move( QApplication::desktop()->screenGeometry().right() - thing->width() , 39);
     manager->toolbarWidgets.at(1)->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
@@ -75,6 +77,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 	manager->toolbarWidgets.at(2)->move(0, manager->toolbars.at(0)->close() );
     
 	
+	*/
     
     for (int i = 0; i < manager->toolbarWidgets.size();i ++)
     {

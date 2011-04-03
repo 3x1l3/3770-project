@@ -8,7 +8,7 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
   this->parent = parent;
   toolbars.clear();
   
-  initXPos = 0;
+  initXPos = 20;
   initYPos = 80;
 }
   
@@ -51,13 +51,13 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
       right += 65;
       toolbarWidgets[i]->hide();
       toolbarWidgets[i]->move(initXPos, initYPos);
-      if(initYPos >= 700)
+      if(initYPos >= 300)
       {
 	initYPos = 40;
 	initXPos = 500;
       }
       else
-	initYPos += 100;
+	initYPos += 150;
       
     }
     toolbars = this->parent->findChildren<QToolBar *>("");
