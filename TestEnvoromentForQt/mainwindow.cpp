@@ -120,10 +120,19 @@ void MainWindow::setTransparency()
   if(underClick)
   {
     manager->toggleTransparency(true);
+    for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+    {
+      manager->toolbarWidgets.at(i)->setWindowOpacity(0.3);
+    }
+      
   }
   else
   {
     manager->toggleTransparency(false);
+    for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+    {
+      manager->toolbarWidgets.at(i)->setWindowOpacity(0.6);
+    }
   }
   update();
 }
