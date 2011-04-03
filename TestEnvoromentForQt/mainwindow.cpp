@@ -9,6 +9,10 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
+  timer = new QTimer();
+  timer->setInterval(30000);
+  timer->start();
+  connect(timer, SIGNAL(timeout()), this, SLOT(sendNotification()));
   x = 0;
   y = 0;
   this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
@@ -81,7 +85,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       manager->toolbarWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |Qt::X11BypassWindowManagerHint);
       manager->toolbarWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
       manager->toolbarWidgets.at(i)->show();
+      manager->toolbarWidgets.at(1)->setMinimumHeight(300);
     }
+ 
 
     manager->toggleTransparency(true);
     underClick = true; 
@@ -105,6 +111,8 @@ void MainWindow::myshow()
   {
     manager->toolbarWidgets.at(i)->show();
   }
+  
+  system("notify-send test \"Testing\" ");
 }
 
 
@@ -207,6 +215,10 @@ void MainWindow::mouseMoveEvent( QMouseEvent * event)
   QWidget::mouseMoveEvent(event);
   update();
   repaint();
+}
 
+void MainWindow::sendNotification()
+{
+  system("notify-send Alert \"You have a new email and/or message and/or phone call! *gasp*\" ");
 }
 
