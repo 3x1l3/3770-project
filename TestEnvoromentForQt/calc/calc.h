@@ -31,25 +31,25 @@ private:
     void buttonPressed(const QPushButton&);
 
     CalcButton *one;
-    QPushButton *two;
-    QPushButton *three;
-    QPushButton *four;
-    QPushButton *five;
-    QPushButton *six;
-    QPushButton *seven;
-    QPushButton *eight;
-    QPushButton *nine;
-    QPushButton *clear;
-    QPushButton *backspace;
-    QPushButton *decimal;
-    QPushButton *equal;
-    QPushButton *add;
-    QPushButton *subtract;
-    QPushButton *multiply;
-    QPushButton *divide;
-    QPushButton *clearentry;
-    QPushButton *negate;
-    QPushButton *zero;
+    CalcButton *two;
+    CalcButton *three;
+    CalcButton *four;
+    CalcButton *five;
+    CalcButton *six;
+    CalcButton *seven;
+    CalcButton *eight;
+    CalcButton *nine;
+    CalcButton *clear;
+    CalcButton *backspace;
+    CalcButton *decimal;
+    CalcButton *equal;
+    CalcButton *add;
+    CalcButton *subtract;
+    CalcButton *multiply;
+    CalcButton *divide;
+    CalcButton *clearentry;
+    CalcButton *negate;
+    CalcButton *zero;
 
 
 
