@@ -65,13 +65,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     manager->drawToolbars();
 
     
-    
     //Initial widget positioning
     manager->toolbarWidgets.at(0)->move( QApplication::desktop()->screenGeometry().right() - thing->width() , 39);
     manager->toolbarWidgets.at(1)->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
     	banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
         manager->toolbarWidgets.at(1)->window()->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-	manager->toolbarWidgets.at(2)->move(0, 39);
+	manager->toolbarWidgets.at(2)->move(0, manager->toolbars.at(0)->close() );
     
 	
     
