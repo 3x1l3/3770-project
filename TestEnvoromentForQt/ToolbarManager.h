@@ -20,6 +20,9 @@ public:
   void addNewToolbar(QString label, int features, int allowedDockableArea, float windowOpacity, QWidget* mainWindow);
   void drawToolbars();
   
+  int initXPos;
+  int initYPos;
+  
   QList<QToolBar *> toolbars;
 
 protected:
