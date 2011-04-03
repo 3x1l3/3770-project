@@ -21,11 +21,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   this->noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   this->underClick = true;
   this->setFixedSize(1,1);
-  this->activeIcon = QIcon(QPixmap("shutter.png"));
-  this->inactiveIcon = QIcon(QPixmap("shutter_inactive.png"));
 
     /// Creating system tray icon and menu functionality ///
-    tray = new QSystemTrayIcon(this->inactiveIcon,this);
+    QSystemTrayIcon *tray = new QSystemTrayIcon(QIcon(QPixmap("shutter.png")),this);
     QMenu *context_menu = new QMenu(this);
     QAction *exit = new QAction("Exit", this);
     exit->connect(exit, SIGNAL(triggered()), this, SLOT(close()));
@@ -60,10 +58,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     banner1->setMouseTracking(true);
 
     //Add to manager
-    manager->addNewToolbar("test", 0, 0, 0.3, thing);
-    manager->addNewToolbar("scrollin'", 0, 0, 0.3, banner1);
-    manager->addNewToolbar("Notepad", 0, 0, 0.3, dockText);
-    manager->addNewToolbar("Calculator", 0, 0, 0.3, calc);
+    manager->addNewToolbar("test", 0, 0, 0.7, thing);
+    manager->addNewToolbar("scrollin'", 0, 0, 0.7, banner1);
+    manager->addNewToolbar("Notepad", 0, 0, 0.7, dockText);
+    manager->addNewToolbar("Calculator", 0, 0, 0.7, calc);
     manager->drawToolbars();
 
     
@@ -122,22 +120,19 @@ void MainWindow::setTransparency()
   if(underClick)
   {
     manager->toggleTransparency(true);
-    
     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
     {
       manager->toolbarWidgets.at(i)->setWindowOpacity(0.3);
     }
-    this->tray->setIcon(this->inactiveIcon);
+      
   }
   else
   {
     manager->toggleTransparency(false);
-    
     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
     {
       manager->toolbarWidgets.at(i)->setWindowOpacity(0.6);
     }
-    this->tray->setIcon(this->activeIcon);
   }
   update();
 }
