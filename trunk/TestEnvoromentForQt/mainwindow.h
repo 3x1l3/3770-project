@@ -59,7 +59,9 @@ private:
   QTimer *timer;
   
   ToolbarManager *manager;
-
+  QIcon activeIcon;
+  QIcon inactiveIcon;
+  QSystemTrayIcon *tray;
 };
 
 #endif

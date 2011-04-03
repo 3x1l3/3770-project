@@ -21,9 +21,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   this->noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   this->underClick = true;
   this->setFixedSize(1,1);
+  this->activeIcon = QIcon(QPixmap("shutter.png"));
+  this->inactiveIcon = QIcon(QPixmap("shutter_inactive.png"));
 
     /// Creating system tray icon and menu functionality ///
-    QSystemTrayIcon *tray = new QSystemTrayIcon(QIcon(QPixmap("shutter.png")),this);
+    tray = new QSystemTrayIcon(this->inactiveIcon,this);
     QMenu *context_menu = new QMenu(this);
     QAction *exit = new QAction("Exit", this);
     exit->connect(exit, SIGNAL(triggered()), this, SLOT(close()));
@@ -124,7 +126,7 @@ void MainWindow::setTransparency()
     {
       manager->toolbarWidgets.at(i)->setWindowOpacity(0.3);
     }
-      
+    this->tray->setIcon(this->inactiveIcon);
   }
   else
   {
@@ -133,6 +135,7 @@ void MainWindow::setTransparency()
     {
       manager->toolbarWidgets.at(i)->setWindowOpacity(0.6);
     }
+    this->tray->setIcon(this->activeIcon);
   }
   update();
 }
