@@ -63,9 +63,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
    
     
     //Add to manager
-    manager->addNewToolbar("test", 0, 0, 0.5, thing);
-    manager->addNewToolbar("scrollin'", 0, 0, 0.5, banner1);
-    manager->addNewToolbar("Notepad", 0, 0, 0.5, dockText);
+    manager->addNewToolbar("test", 0, 0, 0.2, thing);
+    manager->addNewToolbar("scrollin'", 0, 0, 0.2, banner1);
+    manager->addNewToolbar("Notepad", 0, 0, 0.2, dockText);
     manager->drawToolbars();
 
     
