@@ -6,6 +6,7 @@
 ToolbarManager::ToolbarManager(QMainWindow *parent)
 {
   this->parent = parent;
+  toolbars.clear();
 }
   
   void ToolbarManager::addNewToolbar(QString label, int features, int allowedDockableArea, float windowOpacity, QWidget* mainWidget)
@@ -26,6 +27,8 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
       toolbar->setAllowedAreas(Qt::NoToolBarArea);
     }
     
+    
+    
     toolbar->setWindowOpacity(windowOpacity);
     
     toolbar->addWidget(mainWidget);
@@ -45,6 +48,7 @@ ToolbarManager::ToolbarManager(QMainWindow *parent)
       right += 65;
       toolbarWidgets[i]->hide();
     }
+    toolbars = this->parent->findChildren<QToolBar *>("");
 
   }
 

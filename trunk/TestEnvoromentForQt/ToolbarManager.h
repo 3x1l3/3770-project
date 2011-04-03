@@ -20,6 +20,7 @@ public:
   void addNewToolbar(QString label, int features, int allowedDockableArea, float windowOpacity, QWidget* mainWindow);
   void drawToolbars();
   
+  QList<QToolBar *> toolbars;
 
 protected:
 
@@ -30,6 +31,8 @@ protected:
 public slots:
   void toggleTransparency(bool);
     QVector<TransparentToolbar*> toolbarWidgets;
+    
+    
 
 };
 
