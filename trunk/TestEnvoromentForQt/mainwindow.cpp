@@ -316,10 +316,16 @@ void MainWindow::sendNotification()
 }
 
 void MainWindow::clickActivation(QSystemTrayIcon::ActivationReason event) {
-    if (event == QSystemTrayIcon::Trigger) {
-
-    this->leftcontext_menu->show();
-    this->leftcontext_menu->move(tray->geometry().x(), tray->geometry().y()-leftcontext_menu->geometry().height());
+    
+    if (event == QSystemTrayIcon::Trigger) 
+    {
+      this->leftcontext_menu->show();
+    
+      if(tray->geometry().y() > 50)
+	this->leftcontext_menu->move(tray->geometry().x(), tray->geometry().y()-leftcontext_menu->geometry().height());
+      
+      else
+	this->leftcontext_menu->move(tray->geometry().x(), tray->geometry().y()+tray->geometry().height());
 
 
     }
