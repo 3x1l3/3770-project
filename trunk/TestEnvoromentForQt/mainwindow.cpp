@@ -40,13 +40,24 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction *toggleActive = new QAction("Toggle Active", this);
     toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
     
-    leftcontext_menu = new QMenu(this);
-    activeSlider = new QSlider(this);
-    inactiveSlider = new QSlider(this);
+    leftcontext_menu = new QWidget(this);
+    leftcontext_menu->setWindowFlags(Qt::Popup);
+    leftcontext_menulayout = new QHBoxLayout();
+    activeSlider = new QSlider();
+    inactiveSlider = new QSlider();
+    activeSlider->setMaximum(100);
+    activeSlider->setMinimum(0);
+    inactiveSlider->setMaximum(100);
+    inactiveSlider->setMinimum(0);
 
-
+    leftcontext_menu->setLayout(leftcontext_menulayout);
+    leftcontext_menulayout->addWidget(activeSlider);
+    leftcontext_menulayout->addWidget(inactiveSlider);
 
     connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(clickActivation(QSystemTrayIcon::ActivationReason)));
+
+    connect(activeSlider, SIGNAL(valueChanged(int)), this, SLOT(activeTransparencyChange(int)));
+    connect(inactiveSlider, SIGNAL(valueChanged(int)), this, SLOT(inactiveTransparencyChange(int)));
 
     context_menu->addAction(show);
     context_menu->addAction(hide);
@@ -70,10 +81,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     banner1->setMouseTracking(true);
 
     //Add to manager
-    manager->addNewToolbar("test", 0, 0, 0.3, thing);
-    manager->addNewToolbar("scrollin'", 0, 0, 0.3, banner1);
-    manager->addNewToolbar("Notepad", 0, 0, 0.3, dockText);
-    manager->addNewToolbar("Calculator", 0, 0, 0.3, calc);
+    manager->addNewToolbar("test", 0, 0, this->inactiveOpacity, thing);
+    manager->addNewToolbar("scrollin'", 0, 0, this->inactiveOpacity, banner1);
+    manager->addNewToolbar("Notepad", 0, 0, this->inactiveOpacity, dockText);
+    manager->addNewToolbar("Calculator", 0, 0, this->inactiveOpacity, calc);
     manager->drawToolbars();
     
     banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() * 0.9 );
@@ -137,7 +148,7 @@ void MainWindow::setTransparency()
     manager->toggleTransparency(true);
     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
     {
-      manager->toolbarWidgets.at(i)->setWindowOpacity(0.3);
+      manager->toolbarWidgets.at(i)->setWindowOpacity(this->inactiveOpacity);
     }
       this->tray->setIcon(inactiveIcon);
   }
@@ -146,7 +157,7 @@ void MainWindow::setTransparency()
     manager->toggleTransparency(false);
     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
     {
-      manager->toolbarWidgets.at(i)->setWindowOpacity(0.6);
+      manager->toolbarWidgets.at(i)->setWindowOpacity(this->activeOpacity);
     }
     this->tray->setIcon(activeIcon);
   }
@@ -254,9 +265,31 @@ void MainWindow::sendNotification()
 void MainWindow::clickActivation(QSystemTrayIcon::ActivationReason event) {
     if (event == QSystemTrayIcon::Trigger) {
 
-
-
+    this->leftcontext_menu->show();
+    this->leftcontext_menu->move(tray->geometry().x(), tray->geometry().y()-leftcontext_menu->geometry().height());
 
 
     }
+}
+
+void MainWindow::activeTransparencyChange(int value) {
+    this->activeOpacity = (float)value/100;
+    for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+    {
+      manager->toolbarWidgets.at(i)->setWindowOpacity(this->activeOpacity);
+    }
+      this->tray->setIcon(inactiveIcon);
+
+    this->update();
+}
+
+void MainWindow::inactiveTransparencyChange(int value) {
+    this->inactiveOpacity = (float)value/100;
+    for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+    {
+      manager->toolbarWidgets.at(i)->setWindowOpacity(this->inactiveOpacity);
+    }
+      this->tray->setIcon(inactiveIcon);
+
+    this->update();
 }

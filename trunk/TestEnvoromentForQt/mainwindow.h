@@ -13,6 +13,7 @@
 #include <calc/calc.h>
 #include <QSlider>
 
+
 #include "ToolbarManager.h"
 
 #include "BannerWidget.h"
@@ -41,6 +42,8 @@ private slots:
   void setTransparency();
   void sendNotification();
   void clickActivation(QSystemTrayIcon::ActivationReason);
+  void activeTransparencyChange(int);
+  void inactiveTransparencyChange(int);
 
 signals:
   void sendOutMouseXY(int x, int y);
@@ -69,7 +72,8 @@ private:
   float inactiveOpacity;
   QSlider *activeSlider;
   QSlider *inactiveSlider;
-  QMenu* leftcontext_menu;
+  QWidget* leftcontext_menu;
+  QHBoxLayout* leftcontext_menulayout;
 
 };
 
