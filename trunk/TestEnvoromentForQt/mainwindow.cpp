@@ -8,8 +8,8 @@ using namespace std;
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
   timer = new QTimer();
- // timer->setInterval(30000);
- // timer->start();
+  timer->setInterval(30000);
+  timer->start();
   connect(timer, SIGNAL(timeout()), this, SLOT(sendNotification()));
   this->x = 0;
   this->y = 0;
@@ -82,9 +82,9 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     //Initial widget positioning
     manager->toolbarWidgets.at(0)->move( QApplication::desktop()->screenGeometry().right() - thing->width() , 39);
     manager->toolbarWidgets.at(1)->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-    	banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-        manager->toolbarWidgets.at(1)->window()->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-	manager->toolbarWidgets.at(2)->move(0, manager->toolbars.at(0)->close() );
+    banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
+    manager->toolbarWidgets.at(1)->window()->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
+    manager->toolbarWidgets.at(2)->move(0, manager->toolbars.at(0)->close() );
     
 	
 	*/
@@ -248,7 +248,7 @@ void MainWindow::sendNotification()
   
   system(str.toStdString().c_str());
   */
-  system( "notify-send -i ~/Documents/HCI/Project/3770-project/TestEnvoromentForQt/shutter.png Alert \"You have a new email and/or message and or incoming call!\" ");
+  system( "notify-send Alert \"You have a new email and/or message and or incoming call!\" ");
 }
 
 void MainWindow::clickActivation(QSystemTrayIcon::ActivationReason event) {
