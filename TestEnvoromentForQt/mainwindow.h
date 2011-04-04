@@ -13,6 +13,8 @@
 #include <calc/calc.h>
 #include <QSlider>
 
+#include <QFile>
+
 
 #include "ToolbarManager.h"
 
@@ -74,6 +76,13 @@ private:
   QSlider *inactiveSlider;
   QWidget* leftcontext_menu;
   QHBoxLayout* leftcontext_menulayout;
+  
+  void openSettings();
+  void saveSettings();
+
+  
+  QFile *settingsFile;
+  void close();
 
 };
 

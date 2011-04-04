@@ -6,6 +6,8 @@
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
+  
+  settingsFile = new QFile("./settings.txt");
 
   timer = new QTimer();
   timer->setInterval(30000);
@@ -112,6 +114,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     manager->toggleTransparency(true);
     underClick = true; 
     QMainWindow::hide();
+    
+    this->openSettings();
 }
 
 void MainWindow::myhide()
@@ -133,6 +137,53 @@ void MainWindow::myshow()
   }
   
   system("notify-send test \"Testing\" ");
+}
+
+
+void MainWindow::openSettings()
+{
+
+  
+  int tempX = 40;
+  int tempY = 40;
+  
+  
+  if (!settingsFile->open(QIODevice::ReadOnly | QIODevice::Text))
+    return;
+  if(settingsFile->atEnd())
+    return;
+
+  QTextStream in(settingsFile);
+  QString line;
+  
+  for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+  {
+    //line = in.readLine();
+    in >> tempX; in >> tempY;
+    manager->toolbarWidgets.at(i)->move(tempX, tempY);
+  }
+  
+  settingsFile->close();
+}
+
+void MainWindow::close()
+{
+  saveSettings();
+  QMainWindow::close();
+}
+
+void MainWindow::saveSettings()
+{
+    settingsFile->open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
+    QTextStream out(settingsFile);
+    
+    for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+    {
+      out << manager->toolbarWidgets.at(i)->pos().x() << " " << manager->toolbarWidgets.at(i)->pos().y() << endl;
+    }
+    
+    settingsFile->close();
+ 
 }
 
 
@@ -161,6 +212,8 @@ void MainWindow::setTransparency()
     }
     this->tray->setIcon(activeIcon);
   }
+  
+  saveSettings();
   update();
 }
 
