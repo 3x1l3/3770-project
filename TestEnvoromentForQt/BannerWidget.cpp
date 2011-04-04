@@ -61,6 +61,8 @@ void BannerWidget::openEditWindow()
 //      "Enter banner text:", QLineEdit::Normal, bannerString, &ok);
   QInputDialog *input = new QInputDialog();
   input->raise();
+  input->setWindowFlags( Qt::CustomizeWindowHint | Qt::WindowStaysOnTopHint);
+
   QString result = input->getText(0, "Settings", "Enter banner text:", QLineEdit::Normal, bannerString, &ok);input->raise();
   input->raise();
   
