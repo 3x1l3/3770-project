@@ -9,9 +9,16 @@ photos::photos(QWidget *parent) : QWidget(parent)
     imageDialog->setFileMode(QFileDialog::Directory);
     imageDialog->setOption(QFileDialog::ShowDirsOnly);
     label = new QLabel(this);
+    
+    QLabel *info = new QLabel(this);
+    
+    info->setText("Photo Viewer. Right click to change.");
+    
+    info->show();
+    
     label->setScaledContents(true);
     image = new QPixmap();
-    this->setFixedSize(300, 200);
+    this->setFixedSize(300, 250);
     this->setContextMenuPolicy(Qt::CustomContextMenu);
 
     context = new QMenu();
@@ -44,7 +51,7 @@ void photos::loadImages(QString dir) {
   if (this->files.empty()) {
       this->nofiles->show();
   } else {
-     startTimer(1000);
+     startTimer(8000);
  }
 
    this->currentfile = 0;
