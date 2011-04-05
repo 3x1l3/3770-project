@@ -87,6 +87,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     DockTextEdit* dockText = new DockTextEdit();
     BannerWidget *banner1 = new BannerWidget();
     Calc *calc = new Calc();
+    digitalClock *digiClock = new digitalClock();
 
     //set Properties
     banner1->setMouseTracking(true);
@@ -96,6 +97,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     manager->addNewToolbar("scrollin'", 0, 0, this->inactiveOpacity, banner1);
     manager->addNewToolbar("Notepad", 0, 0, this->inactiveOpacity, dockText);
     manager->addNewToolbar("Calculator", 0, 0, this->inactiveOpacity, calc);
+    manager->addNewToolbar("DigitalClock", 0, 0, this->inactiveOpacity, digiClock);
     manager->drawToolbars();
     
     banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() * 0.9 );
@@ -168,6 +170,17 @@ void MainWindow::openSettings()
   
   for(int i = 0; i < manager->toolbarWidgets.size(); i++)
   {
+    if(settingsFile->atEnd())
+    {
+      tempX = 100;
+      tempY = 100;
+    }
+    if(tempX < 0 || tempY < 0 || tempY > QApplication::desktop()->geometry().y() - 100 
+		 || tempX > QApplication::desktop()->geometry().x() - 100)
+    {
+      tempX = 100;
+      tempY = 100;
+    }
     //line = in.readLine();
     in >> tempX; in >> tempY;
     manager->toolbarWidgets.at(i)->move(tempX, tempY);
