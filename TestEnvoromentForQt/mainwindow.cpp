@@ -42,19 +42,28 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction *toggleActive = new QAction("Toggle Active", this);
     toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
     
-    leftcontext_menu = new QWidget(this);
-    leftcontext_menu->setWindowFlags(Qt::Popup);
-    leftcontext_menulayout = new QHBoxLayout();
-    activeSlider = new QSlider();
-    inactiveSlider = new QSlider();
-    activeSlider->setMaximum(100);
-    activeSlider->setMinimum(0);
-    inactiveSlider->setMaximum(100);
-    inactiveSlider->setMinimum(0);
+    this->leftcontext_menu = new QWidget(this);
+    this->leftcontext_menu->setWindowFlags(Qt::Popup);
+    this->leftcontext_menulayout = new QVBoxLayout();
+    this->activeSlider = new QSlider();
+    this->inactiveSlider = new QSlider();
+    this->inactiveLabel = new QLabel("Inactive");
+    this->activeLabel = new QLabel("Active");
+    this->activeSlider->setMaximum(100);
+    this->activeSlider->setMinimum(0);
+    this->activeSlider->setValue(this->activeOpacity*100);
+    this->inactiveSlider->setMaximum(100);
+    this->inactiveSlider->setMinimum(0);
+    this->inactiveSlider->setValue(this->inactiveOpacity*100);
 
-    leftcontext_menu->setLayout(leftcontext_menulayout);
-    leftcontext_menulayout->addWidget(activeSlider);
-    leftcontext_menulayout->addWidget(inactiveSlider);
+    this->leftcontext_menu->setLayout(this->leftcontext_menulayout);
+    this->leftcontext_menulayout->addWidget(this->inactiveLabel);
+    this->leftcontext_menulayout->addWidget(this->inactiveSlider);
+    this->leftcontext_menulayout->addWidget(this->activeLabel);
+    this->leftcontext_menulayout->addWidget(this->activeSlider);
+
+    this->activeSlider->setVisible(false);
+    this->activeLabel->setVisible(false);
 
     connect(tray, SIGNAL(activated(QSystemTrayIcon::ActivationReason)), this, SLOT(clickActivation(QSystemTrayIcon::ActivationReason)));
 
@@ -125,6 +134,7 @@ void MainWindow::myhide()
   {
     manager->toolbarWidgets.at(i)->hide();
   }
+
   QMainWindow::hide();
 }
 
@@ -135,7 +145,7 @@ void MainWindow::myshow()
   {
     manager->toolbarWidgets.at(i)->show();
   }
-  
+
   system("notify-send test \"Testing\" ");
 }
 
@@ -202,6 +212,7 @@ void MainWindow::setTransparency()
       manager->toolbarWidgets.at(i)->setWindowOpacity(this->inactiveOpacity);
     }
       this->tray->setIcon(inactiveIcon);
+
   }
   else
   {
@@ -211,8 +222,9 @@ void MainWindow::setTransparency()
       manager->toolbarWidgets.at(i)->setWindowOpacity(this->activeOpacity);
     }
     this->tray->setIcon(activeIcon);
+
   }
-  
+  this->leftcontextSwitch();
   saveSettings();
   update();
 }
@@ -333,22 +345,43 @@ void MainWindow::clickActivation(QSystemTrayIcon::ActivationReason event) {
 
 void MainWindow::activeTransparencyChange(int value) {
     this->activeOpacity = (float)value/100;
+
+    if (!this->underClick) {
     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
     {
       manager->toolbarWidgets.at(i)->setWindowOpacity(this->activeOpacity);
     }
-      this->tray->setIcon(inactiveIcon);
+}
+
 
     this->update();
 }
 
 void MainWindow::inactiveTransparencyChange(int value) {
     this->inactiveOpacity = (float)value/100;
+
+    if (this->underClick)
+    {
     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
     {
       manager->toolbarWidgets.at(i)->setWindowOpacity(this->inactiveOpacity);
     }
-      this->tray->setIcon(inactiveIcon);
-
+}
     this->update();
+}
+
+void MainWindow::leftcontextSwitch() {
+cout << "here" << endl;
+    if (this->underClick) {
+        this->activeLabel->setVisible(false);
+        this->activeSlider->setVisible(false);
+        this->inactiveSlider->setVisible(true);
+        this->inactiveLabel->setVisible(true);
+    } else {
+        this->inactiveSlider->setVisible(false);
+        this->inactiveLabel->setVisible(false);
+        this->activeSlider->setVisible(true);
+        this->activeLabel->setVisible(true);
+    }
+
 }
