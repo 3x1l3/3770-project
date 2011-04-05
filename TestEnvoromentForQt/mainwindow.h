@@ -25,6 +25,8 @@
 
 #include "photos.h"
 
+#include "digiclock/digitalClock.h"
+
 
 class MainWindow : public QMainWindow {
 
