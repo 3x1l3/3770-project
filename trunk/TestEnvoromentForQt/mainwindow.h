@@ -74,12 +74,15 @@ private:
   float inactiveOpacity;
   QSlider *activeSlider;
   QSlider *inactiveSlider;
+  QLabel *inactiveLabel;
+  QLabel *activeLabel;
   QWidget* leftcontext_menu;
-  QHBoxLayout* leftcontext_menulayout;
+  QVBoxLayout* leftcontext_menulayout;
   
   void openSettings();
   void saveSettings();
 
+    void leftcontextSwitch();
   
   QFile *settingsFile;
   void close();
