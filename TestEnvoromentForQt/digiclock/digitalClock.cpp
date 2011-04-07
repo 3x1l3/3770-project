@@ -1,5 +1,6 @@
 #include "digitalClock.h"
 #include <QPainter>
+#include <QColorDialog>
 
 using namespace std;
 
@@ -14,12 +15,52 @@ digitalClock::digitalClock(QWidget *parent) : QWidget(parent)
   this->setMouseTracking(true);
 
   startTimer(1000);
+  
+  currentColor = Qt::green;
+  
+  setContextMenuPolicy(Qt::CustomContextMenu);
+  
+  connect(this, SIGNAL(customContextMenuRequested(const QPoint &)), this, SLOT(showContextMenu(const QPoint &)));
+    
+  openEditWindowAction = new QAction("&Settings", this);
+  openEditWindowAction->setStatusTip("Opens the settings for this widget");
+  connect (openEditWindowAction, SIGNAL(triggered()), this, SLOT(openEditWindow()));
 }
 
 
 digitalClock::~digitalClock()
 {
 
+}
+
+void digitalClock::mousePressEvent(QMouseEvent *event)
+{
+  if(event->button() == Qt::RightButton)
+  {
+    emit customContextMenuRequested(event->pos());
+  }
+}
+
+void digitalClock::showContextMenu(const QPoint &pos) {
+    QMenu *menu = new QMenu;
+    menu->addAction(openEditWindowAction);
+    menu->exec(mapToGlobal(pos));
+}
+
+void digitalClock::openEditWindow()
+{
+  QColorDialog *chooseColor = new QColorDialog();
+  chooseColor->setCurrentColor(1);
+  chooseColor->exec();
+  if(chooseColor->result() == QDialog::Accepted)
+  {
+    currentColor = chooseColor->currentColor();
+    update();  
+  }
+  else if (chooseColor->result() == QDialog::Rejected)
+  {
+    update();
+  }
 }
 
 void digitalClock::mouseMoveEvent(QMouseEvent* event)
@@ -39,10 +80,11 @@ void digitalClock::paintEvent(QPaintEvent* event)
   painter->setBrush(Qt::black);
   painter->drawRect(0,0,width(),height());
   
-  painter->setBrush(Qt::green);
-  painter->setPen(Qt::green);
+  painter->setBrush(currentColor);
+  painter->setPen(currentColor);
   
   painter->setFont(*clockFont);
+
 
   painter->drawText(10,37,QTime::currentTime().toString("hh:mm AP"));
 

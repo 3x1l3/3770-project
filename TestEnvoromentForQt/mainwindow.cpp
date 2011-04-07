@@ -7,25 +7,25 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   
-  settingsFile = new QFile("./settings.txt");
+    settingsFile = new QFile("./settings.txt");
 
-  timer = new QTimer();
-  timer->setInterval(30000);
-  timer->start();
-  connect(timer, SIGNAL(timeout()), this, SLOT(sendNotification()));
-  this->x = 0;
-  this->y = 0;
-  this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
-  this->setAttribute(Qt::WA_TranslucentBackground);
-  startTimer(100); 
-  this->setWindowOpacity(1);
-  this->setMouseTracking(true);
-  this->fullArea = new QRegion(0, 0, QMainWindow::width(), QMainWindow::height(), QRegion::Rectangle);
-  this->noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
-  this->underClick = true;
-  this->setFixedSize(1,1);
-  this->activeOpacity = 0.6;
-  this->inactiveOpacity = 0.3;
+    timer = new QTimer();
+    timer->setInterval(30000);
+    timer->start();
+    connect(timer, SIGNAL(timeout()), this, SLOT(sendNotification()));
+    this->x = 0;
+    this->y = 0;
+    this->setWindowFlags(Qt::WindowStaysOnTopHint | Qt::FramelessWindowHint);
+    this->setAttribute(Qt::WA_TranslucentBackground);
+    startTimer(100); 
+    this->setWindowOpacity(1);
+    this->setMouseTracking(true);
+    this->fullArea = new QRegion(0, 0, QMainWindow::width(), QMainWindow::height(), QRegion::Rectangle);
+    this->noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
+    this->underClick = true;
+    this->setFixedSize(1,1);
+    this->activeOpacity = 0.6;
+    this->inactiveOpacity = 0.3;
 
     /// Creating system tray icon and menu functionality ///
     activeIcon = QIcon(QPixmap("shutter.png"));
