@@ -83,35 +83,32 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
     //make widgets
     manager = new ToolbarManager(this);
-    photos* thing = new photos();
+    photos* slideShow = new photos();
     DockTextEdit* dockText = new DockTextEdit();
     BannerWidget *banner1 = new BannerWidget();
     Calc *calc = new Calc();
     digitalClock *digiClock = new digitalClock();
+    //for controlling the widgets on or off.
+    //MAKE THIS THE LAST WIDGET ADDED TO THE TOOLBAR MANAGER ... OR ELSE!
+    ControllerBar *controlBar = new ControllerBar();
+    
 
     //set Properties
     banner1->setMouseTracking(true);
 
     //Add to manager
-    manager->addNewToolbar("test", 0, 0, this->inactiveOpacity, thing);
-    manager->addNewToolbar("scrollin'", 0, 0, this->inactiveOpacity, banner1);
+    manager->addNewToolbar("SlideShow", 0, 0, this->inactiveOpacity, slideShow);
+    manager->addNewToolbar("Banner", 0, 0, this->inactiveOpacity, banner1);
     manager->addNewToolbar("Notepad", 0, 0, this->inactiveOpacity, dockText);
     manager->addNewToolbar("Calculator", 0, 0, this->inactiveOpacity, calc);
-    manager->addNewToolbar("DigitalClock", 0, 0, this->inactiveOpacity, digiClock);
+    manager->addNewToolbar("Clock", 0, 0, this->inactiveOpacity, digiClock);
+    //CONTROL BAR MUST BE THE LAST WIDGET ADDED INTO OUR PROGRAM ... OR ELSE!!!
+    manager->addNewToolbar("Controller", 0, 0, this->inactiveOpacity, controlBar);
     manager->drawToolbars();
     
     banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() * 0.9 );
 
-    /*
-    //Initial widget positioning
-    manager->toolbarWidgets.at(0)->move( QApplication::desktop()->screenGeometry().right() - thing->width() , 39);
-    manager->toolbarWidgets.at(1)->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-    banner1->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-    manager->toolbarWidgets.at(1)->window()->setMinimumWidth( QApplication::desktop()->screenGeometry().width() );
-    manager->toolbarWidgets.at(2)->move(0, manager->toolbars.at(0)->close() );
-    
-	
-	*/
+
     
     for (int i = 0; i < manager->toolbarWidgets.size();i ++)
     {
@@ -119,8 +116,11 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       manager->toolbarWidgets.at(i)->setWindowFlags(Qt::Window | Qt::FramelessWindowHint |Qt::X11BypassWindowManagerHint);
       manager->toolbarWidgets.at(i)->setAllowedAreas(Qt::NoToolBarArea);
       manager->toolbarWidgets.at(i)->show();
+      
+      //this is so we dont add the toggler controller to itself.
+      if(i<manager->toolbarWidgets.size()-1)
+    	controlBar->addControlPoint(manager->toolbarWidgets[i]->windowTitle(), manager->toolbarWidgets[i]);
     }
- 
 
     manager->toggleTransparency(true);
     underClick = true; 
@@ -131,24 +131,29 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 void MainWindow::myhide()
 {
-
   for(int i = 0; i < manager->toolbarWidgets.size(); i++)
   {
     manager->toolbarWidgets.at(i)->hide();
   }
 
   QMainWindow::hide();
+  update();
 }
 
 void MainWindow::myshow()
 {
-    QMainWindow::show();
+  QMainWindow::show();
+  
   for(int i = 0; i < manager->toolbarWidgets.size(); i++)
   {
-    manager->toolbarWidgets.at(i)->show();
+    if(manager->toolbarWidgets[i]->CheckIfToolbarIsHidden() != true)
+    {
+      manager->toolbarWidgets.at(i)->show();
+    }
   }
 
-  system("notify-send test \"Testing\" ");
+  update();
+  //system("notify-send test \"Testing\" ");
 }
 
 
