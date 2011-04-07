@@ -16,7 +16,7 @@
 #include <QMessageBox>
 
 #include <QTime>
-
+#include <QColor>
 
 class digitalClock : public QWidget
 {
@@ -38,9 +38,14 @@ public:
 
     QFont *clockFont;
     
+
+    
 protected:
     void paintEvent(QPaintEvent*);
     void mouseMoveEvent(QMouseEvent*);
+    void mousePressEvent(QMouseEvent *event);
+    
+    QAction *openEditWindowAction;
 
 
 private:
@@ -49,7 +54,16 @@ private:
     bool isInvisible;
     int x;
     int y;
+    QColor currentColor;
+    
+    
+signals:
+  void customContextMenuRequested(const QPoint&);
 
+private slots:
+  void showContextMenu(const QPoint &);
+  void openEditWindow();
+  
 };
 
 #endif // DIGITALCLOCK_H

@@ -50,7 +50,10 @@ void BannerWidget::showContextMenu(const QPoint &pos) {
 
 void BannerWidget::mousePressEvent(QMouseEvent *event)
 {
-  emit customContextMenuRequested(event->pos());
+  if(event->button() == Qt::RightButton)
+  {
+    emit customContextMenuRequested(event->pos());
+  }
 }
 
 void BannerWidget::openEditWindow()
