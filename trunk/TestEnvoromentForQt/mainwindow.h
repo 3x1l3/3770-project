@@ -27,6 +27,8 @@
 
 #include "digiclock/digitalClock.h"
 
+#include "ControllerBar.h"
+
 
 class MainWindow : public QMainWindow {
 
@@ -80,6 +82,8 @@ private:
   QLabel *activeLabel;
   QWidget* leftcontext_menu;
   QVBoxLayout* leftcontext_menulayout;
+  
+
   
   void openSettings();
   void saveSettings();

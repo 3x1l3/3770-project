@@ -12,6 +12,8 @@ TransparentToolbar::TransparentToolbar( QWidget * parent) : QToolBar( parent )
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
   width = 100;
   height = 100;
+  
+  hidden = false;
 }
 
 TransparentToolbar::TransparentToolbar( QString label) : QToolBar( label )
@@ -21,6 +23,8 @@ TransparentToolbar::TransparentToolbar( QString label) : QToolBar( label )
   setMouseTracking(true);
   fullArea = new QRegion(0, 0, QWidget::width(), QWidget::height(),QRegion::Rectangle);
   noArea = new QRegion(15,15,50,50, QRegion::Rectangle);
+  
+  hidden = false;
 }
 
 TransparentToolbar::~TransparentToolbar()
@@ -109,6 +113,23 @@ void TransparentToolbar::SetWidth(int w)
   width = w;
 }
 
+void TransparentToolbar::toggleHidden()
+{
+  hidden = !hidden;
+  if(hidden)
+  {
+    this->hide();
+  }
+  else if (!hidden)
+  {
+    this->show();
+  }
+}
+
+bool TransparentToolbar::CheckIfToolbarIsHidden()
+{
+  return hidden;
+}
 
 
 

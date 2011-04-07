@@ -34,14 +34,18 @@ class TransparentToolbar : public QToolBar {
     int GetHeight();
     int GetWidth();
     
+    bool CheckIfToolbarIsHidden();
+    
   public slots:
     void recieveMouseXY(int x, int y);
+    void toggleHidden();
     
   private:
     
 
     
     bool isInvisible;
+    bool hidden;
     int x;
     int y;
     int width;

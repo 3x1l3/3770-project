@@ -5,12 +5,12 @@ using namespace std;
 
 digitalClock::digitalClock(QWidget *parent) : QWidget(parent)
 {
-  this->setMaximumSize(190,70);
-  this->setMinimumSize(190,70);
+  this->setMaximumSize(170,50);
+  this->setMinimumSize(170,50);
   
   this->setWindowTitle("Digi Clock");
   
-  clockFont = new QFont("Impact",35,1,false);
+  clockFont = new QFont("Impact",25,1,false);
   this->setMouseTracking(true);
 
   startTimer(1000);
@@ -44,7 +44,7 @@ void digitalClock::paintEvent(QPaintEvent* event)
   
   painter->setFont(*clockFont);
 
-  painter->drawText(20,50,QTime::currentTime().toString("hh:mm AP"));
+  painter->drawText(10,37,QTime::currentTime().toString("hh:mm AP"));
 
 }
 
