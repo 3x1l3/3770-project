@@ -50,7 +50,8 @@ private slots:
   void clickActivation(QSystemTrayIcon::ActivationReason);
   void activeTransparencyChange(int);
   void inactiveTransparencyChange(int);
-
+  void showControllerBar();
+  
 signals:
   void sendOutMouseXY(int x, int y);
   
