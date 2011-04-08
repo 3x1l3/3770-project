@@ -124,6 +124,7 @@ void TransparentToolbar::toggleHidden()
   {
     this->show();
   }
+  repaint();
 }
 
 bool TransparentToolbar::CheckIfToolbarIsHidden()
