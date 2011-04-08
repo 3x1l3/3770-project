@@ -5,7 +5,8 @@
 #include <QLineEdit>
 #include <QDockWidget>
 #include <QToolBar>
-
+#include <QtGui>
+#include <iostream>
 class TransparentToolbar : public QToolBar {
   
   Q_OBJECT

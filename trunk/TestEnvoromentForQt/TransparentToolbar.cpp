@@ -1,6 +1,5 @@
 #include "TransparentToolbar.h"
-#include <QtGui>
-#include <iostream>
+
 using namespace std;
 
 TransparentToolbar::TransparentToolbar( QWidget * parent) : QToolBar( parent )

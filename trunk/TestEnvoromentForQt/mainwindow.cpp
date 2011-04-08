@@ -39,8 +39,17 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     QAction *show = new QAction("Show", this);
     show->connect(show, SIGNAL(triggered()), this, SLOT(myshow()) );
     //Action to toggle whether or not the application is 'active', i.e. accepts mouse events
-    QAction *toggleActive = new QAction("Toggle Active", this);
+    QAction *toggleActive = new QAction("Active", this);
+    toggleActive->setCheckable(true);
     toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
+    
+    //TODO this may not be working
+    QAction *controlWidgets = new QAction("Controller Bar", this);
+    controlWidgets->setCheckable(true);
+    controlWidgets->setChecked(true);
+    controlWidgets->connect(controlWidgets, SIGNAL(triggered(bool)), this, SLOT(showControllerBar()));
+    
+    
     
     this->leftcontext_menu = new QWidget(this);
     this->leftcontext_menu->setWindowFlags(Qt::Popup);
@@ -74,6 +83,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     context_menu->addAction(hide);
     context_menu->addSeparator();
     context_menu->addAction(toggleActive);
+    context_menu->addAction(controlWidgets);
     context_menu->addSeparator();
     context_menu->addAction(exit);
     
@@ -110,6 +120,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
 
 
     
+    
     for (int i = 0; i < manager->toolbarWidgets.size();i ++)
     {
       connect(this, SIGNAL(sendOutMouseXY(int, int)), manager->toolbarWidgets[i], SLOT(recieveMouseXY(int, int)));
@@ -121,6 +132,8 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       if(i<manager->toolbarWidgets.size()-1)
     	controlBar->addControlPoint(manager->toolbarWidgets[i]->windowTitle(), manager->toolbarWidgets[i]);
     }
+    controlBar->addControlPoint( "Close this bar", manager->toolbarWidgets.back());
+    
 
     manager->toggleTransparency(true);
     underClick = true; 
@@ -243,6 +256,8 @@ void MainWindow::setTransparency()
 
   }
   this->leftcontextSwitch();
+  emit clickActivation(QSystemTrayIcon::Trigger );
+  
   saveSettings();
   update();
 }
@@ -403,3 +418,14 @@ cout << "here" << endl;
     }
 
 }
+
+void MainWindow::showControllerBar()
+{
+  if(this->manager->toolbars.back()->isHidden())
+    this->manager->toolbars.back()->show();
+  else
+    this->manager->toolbars.back()->hide();
+  
+  repaint();
+}
+
