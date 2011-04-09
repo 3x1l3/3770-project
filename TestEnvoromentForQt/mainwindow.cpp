@@ -7,7 +7,6 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   
-//     settingsFile = new QFile("./settings.txt");
 
     timer = new QTimer();
     timer->setInterval(30000);
@@ -43,13 +42,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     toggleActive->setCheckable(true);
     toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
     
-    //TODO this may not be working
-//     QAction *controlWidgets = new QAction("Controller Bar", this);
-//     controlWidgets->setCheckable(true);
-//     controlWidgets->setChecked(true);
-//     controlWidgets->connect(controlWidgets, SIGNAL(triggered(bool)), this, SLOT(showControllerBar()));
-    
-    
     
     this->leftcontext_menu = new QWidget(this);
     this->leftcontext_menu->setWindowFlags(Qt::Popup);
@@ -83,7 +75,6 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     context_menu->addAction(hide);
     context_menu->addSeparator();
     context_menu->addAction(toggleActive);
-//     context_menu->addAction(controlWidgets);
     context_menu->addSeparator();
     context_menu->addAction(exit);
     
@@ -132,14 +123,12 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       if(i<manager->toolbarWidgets.size()-1)
     	controlBar->addControlPoint(manager->toolbarWidgets[i]->windowTitle(), manager->toolbarWidgets[i]);
     }
-//     controlBar->addControlPoint( "Close this bar", manager->toolbarWidgets.back());
     
 
     manager->toggleTransparency(true);
     underClick = true; 
     QMainWindow::hide();
     
-//     this->openSettings();
 }
 
 void MainWindow::myhide()
@@ -166,70 +155,12 @@ void MainWindow::myshow()
   }
 
   update();
-  //system("notify-send test \"Testing\" ");
 }
-
-
-// void MainWindow::openSettings()
-// {
-// 
-//   
-//   int tempX = 40;
-//   int tempY = 40;
-//   
-//   
-//   if (!settingsFile->open(QIODevice::ReadOnly | QIODevice::Text))
-//     return;
-//   if(settingsFile->atEnd())
-//     return;
-// 
-//   QTextStream in(settingsFile);
-//   QString line;
-//   
-//   for(int i = 0; i < manager->toolbarWidgets.size(); i++)
-//   {
-//     if(settingsFile->atEnd())
-//     {
-//       tempX = 100;
-//       tempY = 100;
-//     }
-//     if(tempX < 0 || tempY < 0 || tempY > QApplication::desktop()->geometry().y() - 100 
-// 		 || tempX > QApplication::desktop()->geometry().x() - 100)
-//     {
-//       tempX = 100;
-//       tempY = 100;
-//     }
-//     //line = in.readLine();
-//     in >> tempX; in >> tempY;
-//     manager->toolbarWidgets.at(i)->move(tempX, tempY);
-//   }
-//   
-//   settingsFile->close();
-// }
 
 void MainWindow::close()
 {
-//   saveSettings();
   QMainWindow::close();
 }
-
-// void MainWindow::saveSettings()
-// {
-//     settingsFile->open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
-//     QTextStream out(settingsFile);
-//     
-//     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
-//     {
-//       out << manager->toolbarWidgets.at(i)->pos().x() << " " << manager->toolbarWidgets.at(i)->pos().y() << endl;
-//     }
-//     
-//     settingsFile->close();
-//  
-// }
-
-
-
-
 
 
 void MainWindow::setTransparency()
@@ -258,10 +189,7 @@ void MainWindow::setTransparency()
   
   
   this->leftcontextSwitch();
-  //emit clickActivation(QSystemTrayIcon::Trigger );
-  //emit activated(QSystemTrayIcon::ActivationReason);
-  
-//   saveSettings();
+
   update();
 }
 
@@ -296,13 +224,12 @@ void MainWindow::timerEvent(QTimerEvent * event)
   XQueryPointer(d, props[0], &inwin,  &inchildwin,
 		&rootx, &rooty, &childx, &childy, &mask);
 
- 	//printf("relative to active window: %d,%d\n", rootx, rooty);
+
 
   XFree(props);           /* free mem */
   (void)XCloseDisplay(d); /* and close the display */
   
   
-  //cout<<rootx<<" "<<rooty<<endl;
   this->x = rootx;
   this->y = rooty;
   emit this->sendOutMouseXY(rootx,rooty);
@@ -350,16 +277,6 @@ void MainWindow::mouseMoveEvent( QMouseEvent * event)
 
 void MainWindow::sendNotification()
 {
-  //TODO relative path calculations here?
-  
-  /*char abspath[PATH_MAX];
-  realpath("/shutter.png", abspath);
-  QString str = QString("notify-send -i ");
-  str = str + abspath;
-  str = str + " Alert! \"You have a new message.\" ";
-  
-  system(str.toStdString().c_str());
-  */
   system( "notify-send Alert \"You have a new email and/or message and or incoming call!\" ");
 }
 
@@ -408,12 +325,15 @@ void MainWindow::inactiveTransparencyChange(int value) {
 
 void MainWindow::leftcontextSwitch() {
 cout << "here" << endl;
-    if (this->underClick) {
+    if (this->underClick) 
+    {
         this->activeLabel->setVisible(false);
         this->activeSlider->setVisible(false);
         this->inactiveSlider->setVisible(true);
         this->inactiveLabel->setVisible(true);
-    } else {
+    } 
+    else 
+    {
         this->inactiveSlider->setVisible(false);
         this->inactiveLabel->setVisible(false);
         this->activeSlider->setVisible(true);
