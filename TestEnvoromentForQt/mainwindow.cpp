@@ -7,7 +7,7 @@ using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
   
-    settingsFile = new QFile("./settings.txt");
+//     settingsFile = new QFile("./settings.txt");
 
     timer = new QTimer();
     timer->setInterval(30000);
@@ -44,10 +44,10 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     toggleActive->connect(toggleActive, SIGNAL(triggered()), this, SLOT(setTransparency()));
     
     //TODO this may not be working
-    QAction *controlWidgets = new QAction("Controller Bar", this);
-    controlWidgets->setCheckable(true);
-    controlWidgets->setChecked(true);
-    controlWidgets->connect(controlWidgets, SIGNAL(triggered(bool)), this, SLOT(showControllerBar()));
+//     QAction *controlWidgets = new QAction("Controller Bar", this);
+//     controlWidgets->setCheckable(true);
+//     controlWidgets->setChecked(true);
+//     controlWidgets->connect(controlWidgets, SIGNAL(triggered(bool)), this, SLOT(showControllerBar()));
     
     
     
@@ -83,7 +83,7 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
     context_menu->addAction(hide);
     context_menu->addSeparator();
     context_menu->addAction(toggleActive);
-    context_menu->addAction(controlWidgets);
+//     context_menu->addAction(controlWidgets);
     context_menu->addSeparator();
     context_menu->addAction(exit);
     
@@ -132,14 +132,14 @@ MainWindow::MainWindow(QWidget *parent) : QMainWindow(parent) {
       if(i<manager->toolbarWidgets.size()-1)
     	controlBar->addControlPoint(manager->toolbarWidgets[i]->windowTitle(), manager->toolbarWidgets[i]);
     }
-    controlBar->addControlPoint( "Close this bar", manager->toolbarWidgets.back());
+//     controlBar->addControlPoint( "Close this bar", manager->toolbarWidgets.back());
     
 
     manager->toggleTransparency(true);
     underClick = true; 
     QMainWindow::hide();
     
-    this->openSettings();
+//     this->openSettings();
 }
 
 void MainWindow::myhide()
@@ -170,62 +170,62 @@ void MainWindow::myshow()
 }
 
 
-void MainWindow::openSettings()
-{
-
-  
-  int tempX = 40;
-  int tempY = 40;
-  
-  
-  if (!settingsFile->open(QIODevice::ReadOnly | QIODevice::Text))
-    return;
-  if(settingsFile->atEnd())
-    return;
-
-  QTextStream in(settingsFile);
-  QString line;
-  
-  for(int i = 0; i < manager->toolbarWidgets.size(); i++)
-  {
-    if(settingsFile->atEnd())
-    {
-      tempX = 100;
-      tempY = 100;
-    }
-    if(tempX < 0 || tempY < 0 || tempY > QApplication::desktop()->geometry().y() - 100 
-		 || tempX > QApplication::desktop()->geometry().x() - 100)
-    {
-      tempX = 100;
-      tempY = 100;
-    }
-    //line = in.readLine();
-    in >> tempX; in >> tempY;
-    manager->toolbarWidgets.at(i)->move(tempX, tempY);
-  }
-  
-  settingsFile->close();
-}
+// void MainWindow::openSettings()
+// {
+// 
+//   
+//   int tempX = 40;
+//   int tempY = 40;
+//   
+//   
+//   if (!settingsFile->open(QIODevice::ReadOnly | QIODevice::Text))
+//     return;
+//   if(settingsFile->atEnd())
+//     return;
+// 
+//   QTextStream in(settingsFile);
+//   QString line;
+//   
+//   for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+//   {
+//     if(settingsFile->atEnd())
+//     {
+//       tempX = 100;
+//       tempY = 100;
+//     }
+//     if(tempX < 0 || tempY < 0 || tempY > QApplication::desktop()->geometry().y() - 100 
+// 		 || tempX > QApplication::desktop()->geometry().x() - 100)
+//     {
+//       tempX = 100;
+//       tempY = 100;
+//     }
+//     //line = in.readLine();
+//     in >> tempX; in >> tempY;
+//     manager->toolbarWidgets.at(i)->move(tempX, tempY);
+//   }
+//   
+//   settingsFile->close();
+// }
 
 void MainWindow::close()
 {
-  saveSettings();
+//   saveSettings();
   QMainWindow::close();
 }
 
-void MainWindow::saveSettings()
-{
-    settingsFile->open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
-    QTextStream out(settingsFile);
-    
-    for(int i = 0; i < manager->toolbarWidgets.size(); i++)
-    {
-      out << manager->toolbarWidgets.at(i)->pos().x() << " " << manager->toolbarWidgets.at(i)->pos().y() << endl;
-    }
-    
-    settingsFile->close();
- 
-}
+// void MainWindow::saveSettings()
+// {
+//     settingsFile->open(QIODevice::Truncate | QIODevice::Text | QIODevice::ReadWrite);
+//     QTextStream out(settingsFile);
+//     
+//     for(int i = 0; i < manager->toolbarWidgets.size(); i++)
+//     {
+//       out << manager->toolbarWidgets.at(i)->pos().x() << " " << manager->toolbarWidgets.at(i)->pos().y() << endl;
+//     }
+//     
+//     settingsFile->close();
+//  
+// }
 
 
 
@@ -255,10 +255,13 @@ void MainWindow::setTransparency()
     this->tray->setIcon(activeIcon);
 
   }
-  this->leftcontextSwitch();
-  emit clickActivation(QSystemTrayIcon::Trigger );
   
-  saveSettings();
+  
+  this->leftcontextSwitch();
+  //emit clickActivation(QSystemTrayIcon::Trigger );
+  //emit activated(QSystemTrayIcon::ActivationReason);
+  
+//   saveSettings();
   update();
 }
 
