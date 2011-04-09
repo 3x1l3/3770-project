@@ -86,8 +86,8 @@ private:
   
 
   
-  void openSettings();
-  void saveSettings();
+//   void openSettings();
+//   void saveSettings();
 
     void leftcontextSwitch();
   
