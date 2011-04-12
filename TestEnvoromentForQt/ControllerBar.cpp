@@ -5,6 +5,11 @@ ControllerBar::ControllerBar(QWidget* parent): QWidget(parent)
 {
   setMouseTracking(true);
   vertLay = new QVBoxLayout();
+  QLabel *label = new QLabel("Hide/Show Widgets");
+  QFont f( "Courrier", 8, QFont::Normal);
+  label->setFont(f);
+  label->setMouseTracking(true);
+  vertLay->addWidget(label);
   this->setLayout(vertLay);
 }
 
