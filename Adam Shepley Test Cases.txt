@@ -1,0 +1,94 @@
+Tests by Adam Shepley
+
+Done using a trackpad
+
+
+
+Test 1    Massive Calculations
+====================
+
+With Our Widgets
+-----
+
+Time taken:
+
+52.2 seconds
+
+
+Without Our Widgets
+------
+
+Time Taken:
+
+63 seconds
+
+++++++
+Thoughts:
+The Linux calculator was slow, as was the notepad. Starting them added to the time and annoyance greatly. The HUD's notepad and calculator were ready and apparant.
+The calculator of our HUD was more tolerant and easier to copy from. It was faster to glance between our same-font HUD widgets and copy number than the mismatched linux apps.
+
+
+
+
+
+Test 2     Crunch Those Numbers
+====================
+
+With Our Widgets
+-----
+
+Time taken:
+
+18.9 seconds
+
+
+Without Our Widgets
+------
+
+Time Taken:
+
+19.2 seconds
+
+++++++
+Thoughts:
+This test had a control measure, the physical writing. While neither was truly faster, the HUD seemed more comfortable - having to minimize the full screen video breaks immersion more than moving a mouse over a widget on top of it.
+
+
+
+Test 3      Great Northwestern Text Edit
+====================
+
+With Our Widgets
+-----
+
+Time taken:
+
+22.3 seconds
+
+
+Without Our Widgets
+------
+
+Time Taken:
+
+25.5 seconds
+
+++++++
+Thoughts:
+
+Glitches made this test occur oddly/the text edit sometimes failed to function. Opening multiple OpenOffice documents is slow, sluggish and not good with little ram. The HUD made text retrieval and storage a bit more pleasant.
+
+
+
+
+====================
+User Preference Test
+===================
+
+Overall, I believe that the Clock, Text Editor and Calculator are more useful widgets than they let on. They allow you to keep the context for your current actions and applications while still augmenting the experience.
+
+The photo viewer and the banner widgets don't seem to serve any helpful purpose, but I can see where they would be helpful.
+
+The ability to turn widgets on and off is nice but global keyboard shortcuts would make this function irrelevent.
+
+The transparency of the widgets and ability to work underneath them and customize these features makes them very versatile.
